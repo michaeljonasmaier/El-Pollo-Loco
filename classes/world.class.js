@@ -14,7 +14,9 @@ class World {
         this.keyboard = keyboard;
         this.setWorld();
         this.draw();
+        this.checkCollisions();
     }
+
 
     setWorld() {
         this.character.world = this;
@@ -37,6 +39,8 @@ class World {
         requestAnimationFrame(function () {
             self.draw();
         });
+
+
     }
 
     addObjectsToMap(objects) {
@@ -47,15 +51,23 @@ class World {
 
     addToMap(mo) {
         if (mo.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(mo.width, 0);
-            this.ctx.scale(-1, 1);
-            mo.x = mo.x * -1;
+            mo.flipImage(this.ctx);
         }
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+       mo.draw(this.ctx);
+       mo.drawFrame(this.ctx);
+
         if (mo.otherDirection) {
-            mo.x = mo.x * -1;
-            this.ctx.restore();
-        }
+           mo.flipImageBack(this.ctx);
+        }  
+    }
+    
+    checkCollisions(){
+        setInterval(()=>{
+            this.level.enemies.forEach((enemy)=>{
+                if(this.character.isColliding(enemy)){
+                    console.log("Collision with " + enemy);
+                }
+            })
+        }, 200)
     }
 }

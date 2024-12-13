@@ -56,4 +56,37 @@ class MovableObject {
     isAboveGround() {
         return this.y < 150;
     }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken){
+            ctx.beginPath();
+            ctx.lineWidth = "3";
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }   
+    }
+
+    flipImage(ctx) {
+        ctx.save();
+        ctx.translate(this.width, 0);
+        ctx.scale(-1, 1);
+        this.x = this.x * -1;
+    }
+
+    flipImageBack(ctx){
+        this.x = this.x * -1;
+        ctx.restore();
+    }
+
+    isColliding (mo) {
+        return  (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) && 
+                (this.y + this.height) >= mo.y &&
+                (this.y) <= (mo.y + mo.height); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+
+}
 }
