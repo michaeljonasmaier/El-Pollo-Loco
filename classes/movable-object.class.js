@@ -31,4 +31,12 @@ class MovableObject {
             this.x -= this.speed;
         }, 1000/60);
     }
+
+    playAnimation(images){
+          //Walk Animation
+          let i = this.currentImage % images.length // Modulo ist der Rest also: i = 0/6 => Rest 0, 1/6 => Rest 1, ... also 0,1,2,3,4,5, 0,1,2,3,...
+          let path = images[i];
+          this.img = this.imageCache[path];
+          this.currentImage++;
+    }
 }
