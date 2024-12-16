@@ -10,6 +10,8 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2;
+    energy = 100;
+    lastHit = 0;
 
     loadImage(path) {
         this.img = new Image();
@@ -62,13 +64,13 @@ class MovableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken){
+        if (this instanceof Character || this instanceof Chicken) {
             ctx.beginPath();
             ctx.lineWidth = "3";
             ctx.strokeStyle = "blue";
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
-        }   
+        }
     }
 
     flipImage(ctx) {
@@ -78,15 +80,35 @@ class MovableObject {
         this.x = this.x * -1;
     }
 
-    flipImageBack(ctx){
+    flipImageBack(ctx) {
         this.x = this.x * -1;
         ctx.restore();
     }
 
-    isColliding (mo) {
-        return  (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) && 
-                (this.y + this.height) >= mo.y &&
-                (this.y) <= (mo.y + mo.height); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+    isColliding(mo) {
+        return (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) &&
+            (this.y + this.height) >= mo.y &&
+            (this.y) <= (mo.y + mo.height); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
-}
+    }
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isDead() {
+        return this.energy == 0;
+    }
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit; //Differenz in Millisekunden
+        timePassed = timePassed / 1000 //Differenz in Skunden
+        if (timePassed < 1) {
+            return true;
+        }
+    }
 }
