@@ -43,6 +43,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.bottles);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -81,9 +82,11 @@ class World {
     }
 
     checkThrowObjects(){
-        if(this.keyboard.D){
+        if(this.keyboard.D && this.character.numberBottles > 0){
             let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 100);
             this.throwableObjects.push(bottle);
+            this.character.numberBottles--;
+            this.bottleBar.setPercentage(this.character.numberBottles*10);
         }
     }
 
@@ -94,5 +97,21 @@ class World {
                 this.healthBar.setPercentage(this.character.energy);
             }
         })
+
+        this.level.bottles.forEach((bottle, index) => {
+            if(this.character.isColliding(bottle)) {
+                this.level.bottles.splice(index, 1);
+                if(this.character.numberBottles < 10){
+                    this.character.numberBottles++;
+                    this.updateBottleBar();
+                }
+            }
+        })
+    }
+
+    updateBottleBar(){
+        if(this.character.numberBottles <= 10){ 
+            this.bottleBar.setPercentage(this.character.numberBottles*10);
+        }
     }
 }
