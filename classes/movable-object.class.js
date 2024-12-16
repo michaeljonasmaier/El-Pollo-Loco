@@ -1,30 +1,10 @@
-class MovableObject {
-    x = 120;
-    y = 280;
-    img;
-    height = 150;
-    width = 100;
-    imageCache = {};
-    currentImage = 0;
+class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
     acceleration = 2;
     energy = 100;
     lastHit = 0;
-
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(arr) {
-        arr.forEach(path => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
 
     jump() {
         this.speedY = 30;
@@ -56,21 +36,11 @@ class MovableObject {
     }
 
     isAboveGround() {
-        return this.y < 150;
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) {
-            ctx.beginPath();
-            ctx.lineWidth = "3";
-            ctx.strokeStyle = "blue";
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
+        if(this instanceof ThrowableObject){
+            return true;
+        } else {
+            return this.y < 150;
+        } 
     }
 
     flipImage(ctx) {
@@ -91,6 +61,7 @@ class MovableObject {
             (this.y) <= (mo.y + mo.height); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
     }
+
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {
