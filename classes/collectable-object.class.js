@@ -1,13 +1,14 @@
 class CollectableObject extends DrawableObject {
     x;
-    y;
-    width = 50;
-    height = 50;
+    y = 80;
+    width;
+    height;
 
-    constructor(path, x, y) {
+    constructor(path, x, width, height) {
         super().loadImage(path);
-        this.x = x;
-        this.y = y;
+        this.x =  x;
+        this.y = 80;
+        this.width = width;
+        this.height = height;
     }
-
 }
