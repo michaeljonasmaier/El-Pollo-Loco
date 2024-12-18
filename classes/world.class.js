@@ -80,7 +80,8 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 200)
+            
+        }, 100)
     }
 
     checkThrowObjects() {
@@ -94,9 +95,13 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.healthBar.setPercentage(this.character.energy);
+            if (this.character.isColliding(enemy) && !enemy.dead) {
+                if(this.character.isAboveGround()){
+                    enemy.dead = true;
+                } else {
+                    this.character.hit();
+                    this.healthBar.setPercentage(this.character.energy);
+                }      
             }
         })
 
@@ -120,7 +125,7 @@ class World {
 
         this.throwableObjects.forEach((to, index) => {
             if (this.level.endboss.isColliding(to)) {
-                this.level.endboss.health--;
+                this.level.endboss.energy--;
                 this.throwableObjects.splice(index, 1);
                 this.updateEndbossAnimation();
             }
@@ -141,15 +146,15 @@ class World {
     }
 
     updateEndbossAnimation() {
-        if (this.level.endboss.health == 4) {
+        if (this.level.endboss.energy == 4) {
             this.level.endboss.animationStyle = "walk";
-        } else if (this.level.endboss.health == 3) {
+        } else if (this.level.endboss.energy == 3) {
             this.level.endboss.animationStyle = "attack";
-        } else if (this.level.endboss.health == 2) {
+        } else if (this.level.endboss.energy == 2) {
             this.level.endboss.animationStyle = "hurt";
-        } else if (this.level.endboss.health == 1) {
+        } else if (this.level.endboss.energy == 1) {
             this.level.endboss.animationStyle = "hurt";
-        } else if (this.level.endboss.health == 0) {
+        } else if (this.level.endboss.energy == 0) {
             this.level.endboss.animationStyle = "dead";
         }
         console.log(this.level.endboss.animationStyle);
