@@ -5,6 +5,8 @@ class Endboss extends MovableObject {
     y = 60;
     x = 2400;
     energy = 5;
+    speed = 10;
+    speedY = 30;
     animationStyle = "alert";
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -54,8 +56,6 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.speed = 10;
-        this.speedY = 30;
         this.animate();
     }
 

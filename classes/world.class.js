@@ -131,6 +131,11 @@ class World {
             }
         })
 
+        if(this.character.isColliding(this.level.endboss)){
+            this.character.hit();
+            this.healthBar.setPercentage(this.character.energy);
+        }
+
     }
 
     updateBottleBar() {

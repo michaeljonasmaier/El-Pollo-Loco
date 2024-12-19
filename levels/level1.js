@@ -34,38 +34,37 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719 * 3),
     ],
     [
-        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setRandomPosition(), 60, 60),
-        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setRandomPosition(), 60, 60),
-        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setRandomPosition(), 60, 60),
-        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setRandomPosition(), 60, 60),
-        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setRandomPosition(), 60, 60)
+        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setXPosition(), setYPosition(), 60, 60),
+        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setXPosition(), setYPosition(), 60, 60),
+        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setXPosition(), setYPosition(), 60, 60),
+        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setXPosition(), setYPosition(), 60, 60),
+        new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setXPosition(), setYPosition(), 60, 60)
     ],
 
     [
-        new CollectableObject('img/8_coin/coin_1.png', setRandomPosition(), 50, 50),
-        new CollectableObject('img/8_coin/coin_1.png', setRandomPosition(), 50, 50),
-        new CollectableObject('img/8_coin/coin_1.png', setRandomPosition(), 50, 50),
-        new CollectableObject('img/8_coin/coin_1.png', setRandomPosition(), 50, 50),
-        new CollectableObject('img/8_coin/coin_1.png', setRandomPosition(), 50, 50),
-        new CollectableObject('img/8_coin/coin_1.png', setRandomPosition(), 50, 50),
-        new CollectableObject('img/8_coin/coin_1.png', setRandomPosition(), 50, 50),
-        new CollectableObject('img/8_coin/coin_1.png', setRandomPosition(), 50, 50)
+        new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
+        new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
+        new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
+        new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
+        new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
+        new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
+        new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
+        new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50)
     ]
 
 );
 
 
-function setRandomPosition() {
-    let position = 400 + Math.random() * 1500;
-    position = checkOverlapping(position);
-    collectableObjectsPositions.push(position)
-    return position;
+function setXPosition() {
+    let xPosition = 400 + Math.random() * 1500;
+    xPosition = checkOverlapping(xPosition);
+    collectableObjectsPositions.push(xPosition)
+    return xPosition;
 }
 
 function checkOverlapping(oldPosition, attempts = 0) {
     const maxAttempts = 200;
     let newPosition = oldPosition;
-
     for (let position of collectableObjectsPositions) {
         let distance = Math.abs(newPosition - position);
 
@@ -79,4 +78,15 @@ function checkOverlapping(oldPosition, attempts = 0) {
         }
     }
     return newPosition;
+}
+
+function setYPosition(){
+    let yPosition = Math.random();
+    if(yPosition > 0 && yPosition < 0.33){
+        return 90;
+    } else if (yPosition >= 0.33 && yPosition < 0.66){
+        return 70;
+    } else {
+        return 50;
+    }
 }

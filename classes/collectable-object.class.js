@@ -4,10 +4,10 @@ class CollectableObject extends DrawableObject {
     width;
     height;
 
-    constructor(path, x, width, height) {
+    constructor(path, x, y, width, height) {
         super().loadImage(path);
         this.x =  x;
-        this.y = 80;
+        this.y = y;
         this.width = width;
         this.height = height;
     }
