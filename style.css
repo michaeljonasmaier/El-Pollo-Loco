@@ -1,53 +1,65 @@
-body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    
+body {
+    margin: 0;
 }
 
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Atma';
     font-style: normal;
     font-weight: 400;
-    src: url('./fonts/atma-v16-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* atma-600 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    src: url('./fonts/atma-v16-latin-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* atma-600 - latin */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Atma';
     font-style: normal;
     font-weight: 600;
-    src: url('./fonts/atma-v16-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* atma-700 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    src: url('./fonts/atma-v16-latin-600.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* atma-700 - latin */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Atma';
     font-style: normal;
     font-weight: 700;
-    src: url('./fonts/atma-v16-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-
-canvas{
-    background-color: black;
+    src: url('./fonts/atma-v16-latin-700.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-.startscreen{
-    width: 60%;
-    height: 510px;
+.full-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.startscreen {
+    width: 720px;
+    height: 480px;
     color: #FFD013;
     font-family: 'Atma';
+    padding: 0;
 }
 
-.background-img{
-    width: 100%;
-    object-fit: cover;
-}
-
-.layer{
+.layer {
+    height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -55,26 +67,26 @@ canvas{
 }
 
 .pepe-gif {
-    height: 400px;
+    height: 300px;
     position: absolute;
     top: 80px;
-    left: 150px;
+    left: 120px;
 }
 
-.title{
+.title {
     position: absolute;
     top: 0;
     left: 200px;
-    font-size: 150px;
+    font-size: 100px;
     text-align: center;
     line-height: 1;
     text-shadow: 8px 1px 0px #9A3A17;
 }
 
-#start_btn{
+#start_btn {
     position: absolute;
-    top: 420px;
-    left: 500px;
+    top: 300px;
+    left: 400px;
     width: 150px;
     height: 50px;
     border-radius: 20px;
@@ -85,8 +97,13 @@ canvas{
     border: solid 3px #9A3A17;
 }
 
-#start_btn:hover{
+#start_btn:hover {
     background-color: #9A3A17;
     border-color: #FFD013;
     cursor: pointer;
+}
+
+footer {
+    height: 100px;
+    background-color: black;
 }
