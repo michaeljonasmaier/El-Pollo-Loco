@@ -36,7 +36,7 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if(this instanceof ThrowableObject || this instanceof Endboss){
+        if(this instanceof ThrowableObject || this instanceof Endboss || this instanceof Cactus){
             return true;
         } else {
             return this.y < 150;

@@ -96,40 +96,19 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.dead) {
-                if(this.character.isAboveGround()){
-                    enemy.dead = true;
-                } else {
-                    this.character.hit();
-                    this.healthBar.setPercentage(this.character.energy);
-                }      
-            }
+            this.checkEnemyCollision(enemy);
         })
 
         this.level.bottles.forEach((bottle, index) => {
-            if (this.character.isColliding(bottle)) {
-                this.level.bottles.splice(index, 1);
-                if (this.character.numberBottles < 10) {
-                    this.character.numberBottles++;
-                    this.updateBottleBar();
-                }
-            }
+            this.checkBottleCollision(bottle, index)
         })
 
         this.level.coins.forEach((coin, index) => {
-            if (this.character.isColliding(coin)) {
-                this.character.numberCoins++;
-                this.level.coins.splice(index, 1);
-                this.updateCoinBar();
-            }
+            this.checkCoinCollision(coin, index);
         })
 
         this.level.cactuses.forEach((cactus, index) => {
-            if (this.character.isColliding(cactus)) {
-                this.character.hit();
-                this.level.cactuses.splice(index, 1);
-                this.healthBar.setPercentage(this.character.energy);
-            }
+            this.checkCactusCollision(cactus, index);
         })
 
         this.throwableObjects.forEach((to, index) => {
@@ -145,6 +124,43 @@ class World {
             this.healthBar.setPercentage(this.character.energy);
         }
 
+    }
+
+    checkEnemyCollision(enemy){
+        if (this.character.isColliding(enemy) && !enemy.dead) {
+            if(this.character.isAboveGround()){
+                enemy.dead = true;
+            } else {
+                this.character.hit();
+                this.healthBar.setPercentage(this.character.energy);
+            }      
+        }
+    }
+
+    checkBottleCollision(bottle, index){
+        if (this.character.isColliding(bottle)) {
+            this.level.bottles.splice(index, 1);
+            if (this.character.numberBottles < 10) {
+                this.character.numberBottles++;
+                this.updateBottleBar();
+            }
+        }
+    }
+
+    checkCoinCollision(coin, index){
+        if (this.character.isColliding(coin)) {
+            this.character.numberCoins++;
+            this.level.coins.splice(index, 1);
+            this.updateCoinBar();
+        }
+    }
+
+    checkCactusCollision(cactus, index){
+        if (this.character.isColliding(cactus)) {
+            this.character.hit();
+            this.level.cactuses[index].applyGravity();
+            this.healthBar.setPercentage(this.character.energy);
+        }
     }
 
     updateBottleBar() {
@@ -171,6 +187,5 @@ class World {
         } else if (this.level.endboss.energy == 0) {
             this.level.endboss.animationStyle = "dead";
         }
-        console.log(this.level.endboss.animationStyle);
     }
 }

@@ -53,16 +53,16 @@ const level1 = new Level(
     ],
 
     [
-        new CollectableObject('img/10_cactus/Cactus.png', setXPosition(), setYPosition(), 50, 50),
-        new CollectableObject('img/10_cactus/Cactus.png', setXPosition(), setYPosition(), 50, 50),
-        new CollectableObject('img/10_cactus/Cactus.png', setXPosition(), setYPosition(), 50, 50),
+        new Cactus(setXPosition(), setYPosition()),
+        new Cactus(setXPosition(), setYPosition()),
+        new Cactus(setXPosition(), setYPosition()),
     ]
 
 );
 
 
 function setXPosition() {
-    let xPosition = 400 + Math.random() * 1500;
+    let xPosition = 400 + Math.random() * 2000;
     xPosition = checkOverlapping(xPosition);
     collectableObjectsPositions.push(xPosition)
     return xPosition;
@@ -89,10 +89,10 @@ function checkOverlapping(oldPosition, attempts = 0) {
 function setYPosition() {
     let yPosition = Math.random();
     if (yPosition > 0 && yPosition < 0.33) {
-        return 90;
+        return 110;
     } else if (yPosition >= 0.33 && yPosition < 0.66) {
         return 70;
     } else {
-        return 50;
+        return 30;
     }
 }
