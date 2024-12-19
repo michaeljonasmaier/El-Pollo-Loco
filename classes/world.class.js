@@ -46,6 +46,7 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.cactuses);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -120,6 +121,14 @@ class World {
                 this.character.numberCoins++;
                 this.level.coins.splice(index, 1);
                 this.updateCoinBar();
+            }
+        })
+
+        this.level.cactuses.forEach((cactus, index) => {
+            if (this.character.isColliding(cactus)) {
+                this.character.hit();
+                this.level.cactuses.splice(index, 1);
+                this.healthBar.setPercentage(this.character.energy);
             }
         })
 
