@@ -73,28 +73,7 @@ class Character extends MovableObject {
 
 
     animate() {
-
-        setInterval(() => {
-            this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.walking_sound.play();
-            }
-
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.walking_sound.play();
-            }
-
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-            }
-
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
-
+        this.checkIfMoving();
         this.playJumpingAnimation();
         this.playDeadAnimation();
         this.playHurtAnimation();
@@ -102,10 +81,41 @@ class Character extends MovableObject {
         this.playIdleAnimation();
     }
 
+    checkIfMoving(){
+        setInterval(() => {
+            this.walking_sound.pause();
+            this.checkIfMovingRight();
+            this.checkIfMovingLeft();
+            this.checkIfJumping();
+            this.world.camera_x = -this.x + 100;
+        }, 1000 / 60);
+    }
+
+    checkIfMovingRight(){
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+            this.walking_sound.play();
+        }
+    }
+
+    checkIfMovingLeft(){
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+            this.walking_sound.play();
+        }
+    }
+
+    checkIfJumping(){
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+        }
+    }
+
     playJumpingAnimation() {
         setInterval(() => {
             if (this.isAboveGround() && !this.isDead()) {
-                console.log("jumping animation ")
                 this.playAnimation(this.IMAGES_JUMPING);
             }
         }, 100);
