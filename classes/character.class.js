@@ -95,26 +95,52 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
-        //let counter = 0;            ------------------------------------------------> fragen
+        this.playJumpingAnimation();
+        this.playDeadAnimation();
+        this.playHurtAnimation();
+        this.playWalkAnimation();
+        this.playIdleAnimation();
+    }
+
+    playJumpingAnimation() {
         setInterval(() => {
-            
+            if (this.isAboveGround() && !this.isDead()) {
+                console.log("jumping animation ")
+                this.playAnimation(this.IMAGES_JUMPING);
+            }
+        }, 100);
+     }
+
+    playDeadAnimation() {
+        setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isAboveGround()) {
-                //counter++;
-                //if(counter%2==0){
-                    this.playAnimation(this.IMAGES_JUMPING);     
-                //}
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                } else {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }  
             }
+        }, 150);
+    }
+
+    playHurtAnimation() {
+        setInterval(() => {
+            if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            }
+        }, 100);
+    }
+
+    playWalkAnimation(){
+        setInterval(() => {
+            if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround() && !this.isDead() ) {
+                this.playAnimation(this.IMAGES_WALKING);
+            } 
         }, 50);
+    }
+
+    playIdleAnimation(){
+        setInterval(() => {
+            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {
+                this.playAnimation(this.IMAGES_IDLE);
+            } 
+        }, 150);
     }
 
 }
