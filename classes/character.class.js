@@ -75,21 +75,23 @@ class Character extends MovableObject {
 
 
     animate() {
-        this.checkIfMoving();
-        this.playJumpingAnimation();
-        this.playDeadAnimation();
-        this.playHurtAnimation();
-        this.playWalkAnimation();
-        this.playIdleAnimation();
+            this.checkIfMoving();
+            this.playJumpingAnimation();
+            this.playDeadAnimation();
+            this.playHurtAnimation();
+            this.playWalkAnimation();
+            this.playIdleAnimation();
     }
 
     checkIfMoving(){
         setInterval(() => {
-            this.walking_sound.pause();
-            this.checkIfMovingRight();
-            this.checkIfMovingLeft();
-            this.checkIfJumping();
-            this.world.camera_x = -this.x + 100;
+            if(!isPaused){
+                this.walking_sound.pause();
+                this.checkIfMovingRight();
+                this.checkIfMovingLeft();
+                this.checkIfJumping();
+                this.world.camera_x = -this.x + 100;
+            }         
         }, 1000 / 60);
     }
 

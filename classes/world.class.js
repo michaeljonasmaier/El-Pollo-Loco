@@ -59,13 +59,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.ctx.translate(-this.camera_x, 0);
 
-        //draw wird so oft aufgerufen, wie es die Grafikkarte hergibt
-        let self = this; //this funktioniert in der kommenden Methode nicht mehr, daher wird es hier in eine Variable gespeichert
-        requestAnimationFrame(function () {
-            self.draw();
-        });
-
-
+        //draw gets called in game.js
     }
 
     addObjectsToMap(objects) {
@@ -237,7 +231,6 @@ class World {
     }
 
     displayTime() {
-        this.ctx.fillStyle = 'white';
         let textHeight = 30;
         this.ctx.fillStyle = 'white';
         this.ctx.fillRect(this.canvas.width - 220, 27, 100, textHeight);
@@ -247,11 +240,18 @@ class World {
 
     startTimer() {
         setInterval(() => {
-            this.highscore.time++
+            if(!isPaused){
+                this.highscore.time++
+            }     
         }, 1000);
     }
 
     getFinalScore() {
         return this.highscore.calculateTotalScore(this.character.energy);
     }
+
+    drawPauseMenu() {
+       
+    }
+
 }

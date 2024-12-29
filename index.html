@@ -56,18 +56,18 @@
             <div class="control-div" id="control_div">
                 <div class="control-div-left">
                     <div class="control-item">
-                        <span>Move right</span>
-                        <img src="./img/11_icons/rechts.png" alt="">
-                    </div>
-                    <div class="control-item">
                         <span>Move left</span>
                         <img src="./img/11_icons/links.png" alt="">
+                    </div>
+                    <div class="control-item">
+                        <span>Jump</span>
+                        <img src="./img/11_icons/raum.png" alt="">
                     </div>
                 </div>
                 <div class="control-div-right">
                     <div class="control-item">
-                        <img src="./img/11_icons/raum.png" alt="">
-                        <span>Jump</span>
+                        <img src="./img/11_icons/rechts.png" alt="">
+                        <span>Move right</span>
                     </div>
                     <div class="control-item">
                         <img src="./img/11_icons/buchstabe-d.png" alt="">
@@ -77,11 +77,43 @@
             </div>
 
             <dialog class="startscreen" id="endscreen">
-
             </dialog>
 
             <dialog class="turn-device" id="turn_device">
                 Turn your device to play El Pollo loco
+            </dialog>
+
+            <dialog class="pausescreen" id="pausescreen">
+                <div class="dialog-content">
+                    <h2>Pause</h2>
+                    <div class="control-div" id="control_div">
+                        <div class="control-div-left">
+                            <div class="control-item">
+                                <span>Move left</span>
+                                <img src="./img/11_icons/links.png" alt="">
+                            </div>
+                            <div class="control-item">
+                                <span>Jump</span>
+                                <img src="./img/11_icons/raum.png" alt="">
+                            </div>
+                        </div>
+                        <div class="control-div-right">
+                            <div class="control-item">
+                                <img src="./img/11_icons/rechts.png" alt="">
+                                <span>Move right</span>
+                            </div>
+                            <div class="control-item">
+                                <img src="./img/11_icons/buchstabe-d.png" alt="">
+                                <span>Throw</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pausescreen-btn-div">
+                        <button class="pausescreen-btn" onclick="startGame()">Restart</button>
+                        <button class="pausescreen-btn" onclick="backToGame()">Back</button>
+                        <button class="pausescreen-btn" onclick="showMenu()">Menu</button>
+                    </div>   
+                </div>
             </dialog>
 
         </div>

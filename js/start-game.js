@@ -1,7 +1,10 @@
 function startGame(){
-    let dialog = document.getElementById("startscreen");
+    let startDialog = document.getElementById("startscreen");
     let endDialog = document.getElementById("endscreen");
-    dialog.close();
+    let pauseDialog = document.getElementById("pausescreen");
+    startDialog.close();
     endDialog.close();
+    pauseDialog.close();
+    isPaused = false;
     init();
 }

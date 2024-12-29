@@ -2,17 +2,41 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let gameover = false;
-let time
+let time;
+let isPaused = false;
+let pauseScreen;
 
 function init() {
     initLevel();
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
-    
+    pauseScreen = document.getElementById("pausescreen");
+    gameLoop();
+}
+
+function gameLoop() {
+    if (!isPaused) {
+        world.draw();
+    } else {
+        pauseScreen.showModal();
+    }
+    animationFrame = requestAnimationFrame(gameLoop);
 }
 
 function gameEnd(score, won){
     showEndscreen(score, won);
+}
+
+function backToGame(){
+    pauseScreen.close();
+    isPaused = false;
+}
+
+function showMenu(){
+    pauseScreen.close();
+    isPaused = false;
+    let startDialog = document.getElementById("startscreen");
+    startDialog.showModal();
 }
 
 window.addEventListener('keydown', (event) => {
@@ -37,8 +61,18 @@ window.addEventListener('keydown', (event) => {
     }
 
     if(event.code == "KeyD"){
-        keyboard.D = true;
+        keyboard.D = true; 
     }
+
+    if(event.code == "Escape"){
+        if(isPaused){
+            isPaused = false;
+        } else {
+            isPaused = true;
+        }       
+    }
+
+    
 })
 
 window.addEventListener('keyup', (event) => {
