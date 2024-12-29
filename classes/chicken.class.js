@@ -8,16 +8,15 @@ class Chicken extends MovableObject {
         "img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
         "img/3_enemies_chicken/chicken_normal/1_walk/3_w.png"
     ];
-
     IMAGE_DEAD = "img/3_enemies_chicken/chicken_normal/2_dead/dead.png";
 
 
-    constructor() {
+    constructor(x, speedFactor) {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImage(this.IMAGE_DEAD);
-        this.x = 200 + Math.random() * 500; //Math.random() generiert eine zufällige Zahl zwischen 0 und 1 
-        this.speed = 0.15 + Math.random() * 0.25; //Damit alle Hühner unterschiedlich schnell laufen, wird der speed randomisiert
+        this.x = x; //Math.random() generiert eine zufällige Zahl zwischen 0 und 1 
+        this.speed = 0.3 + Math.random() * speedFactor; //Damit alle Hühner unterschiedlich schnell laufen, wird der speed randomisiert
         this.animate();
     }
 

@@ -25,7 +25,7 @@ class World {
         this.draw();
         this.startTimer();
         this.run();
-
+        console.log(this.highscore.bestScores);
     }
 
 
@@ -96,12 +96,15 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            checkProgression(this.character.x, this.level.enemies);
             if (this.character.isDead()) {
-                gameEnd(this.highscore.score, this.character.won);
+                this.prepareGameEnd(this.character.won);
             }
 
         }, 100)
     }
+
+   
 
     checkThrowObjects() {
         if (this.keyboard.D && this.character.numberBottles > 0) {
@@ -153,7 +156,6 @@ class World {
                     this.character.hit();
                     this.healthBar.setPercentage(this.character.energy);
                 }
-
             }
         }
     }
@@ -209,8 +211,7 @@ class World {
         } else if (this.level.endboss.energy == 0) {
             this.level.endboss.animationStyle = "dead";
             this.character.won = true;
-            gameEnd(this.getFinalScore(), this.character.won);
-
+           this.prepareGameEnd();
         }
     }
 
@@ -246,12 +247,14 @@ class World {
         }, 1000);
     }
 
-    getFinalScore() {
-        return this.highscore.calculateTotalScore(this.character.energy);
+    getFinalScore(won) {
+        return this.highscore.calculateTotalScore(this.character.energy, won);
     }
 
-    drawPauseMenu() {
-       
+    prepareGameEnd(won){
+        let finalScore = this.getFinalScore(won);
+        let bestScoreList = this.highscore.getBestScoreList();
+        this.highscore.safeToLocalStorage();
+        gameEnd(finalScore, this.character.won, bestScoreList);
     }
-
 }

@@ -64,7 +64,7 @@ body {
     border: none;
 }
 
-#endscreen{
+#endscreen {
     display: none;
 }
 
@@ -83,7 +83,7 @@ body {
     left: 100px;
 }
 
-.outro{
+.outro {
     height: 300px;
     top: 130px;
     left: 30px;
@@ -119,7 +119,16 @@ body {
     cursor: pointer;
 }
 
-.cloud-canvas{
+.back-btn {
+    font-size: 18px;
+    left: 210px;
+}
+
+.start-btn {
+    font-size: 18px;
+}
+
+.cloud-canvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -127,7 +136,7 @@ body {
     height: 480px;
 }
 
-.won{
+.won {
     position: absolute;
     left: 200px;
     top: 100px;
@@ -135,13 +144,13 @@ body {
     height: 100px;
 }
 
-.lost{
+.lost {
     position: absolute;
     top: 0;
     left: 0;
 }
 
-#score{
+#score {
     background-color: white;
     position: absolute;
     top: 240px;
@@ -151,46 +160,46 @@ body {
     border-radius: 10px;
 }
 
-.control-div{
+.control-div {
     display: flex;
     font-family: 'Atma';
     gap: 30px;
 }
 
-.control-item{
+.control-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
 }
 
-.control-item img{
+.control-item img {
     height: 40px;
 }
 
-.d-none{
+.d-none {
     display: none;
 }
 
-.pausescreen{
+.pausescreen {
     width: 720px;
     height: 480px;
     background: none;
     color: #FFD013;
     font-family: 'Atma';
     font-size: 24px;
-    padding: 0;   
+    padding: 0;
     border: none;
 }
 
-.dialog-content{
+.dialog-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
 }
 
-.pausescreen-btn{
+.pausescreen-btn {
     width: 100px;
     height: 30px;
     border-radius: 20px;
@@ -206,7 +215,7 @@ body {
     cursor: pointer;
 }
 
-.pausescreen::backdrop{
+.pausescreen::backdrop {
     backdrop-filter: blur(8px);
 }
 

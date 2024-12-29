@@ -2,14 +2,14 @@ let collectableObjectsPositions = [];
 let level1;
 let gameHasStarted = false;
 
-function initLevel(){
+function initLevel() {
     level1 = new Level(
         [
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-    
+            new Chicken(enemyStartPosition(600), 0.25),
+            new Chicken(enemyStartPosition(600), 0.25),
+            new Chicken(enemyStartPosition(600), 0.25),
+            new Chicken(enemyStartPosition(600), 0.25),
+
         ],
         new Endboss(),
         [
@@ -47,7 +47,7 @@ function initLevel(){
             new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setXPosition(), setYPosition(), 60, 60),
             new CollectableObject('img/6_salsa_bottle/salsa_bottle.png', setXPosition(), setYPosition(), 60, 60)
         ],
-    
+
         [
             new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
             new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
@@ -58,20 +58,17 @@ function initLevel(){
             new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50),
             new CollectableObject('img/8_coin/coin_1.png', setXPosition(), setYPosition(), 50, 50)
         ],
-    
+
         [
             new Cactus(setXPosition(), setYPosition()),
             new Cactus(setXPosition(), setYPosition()),
             new Cactus(setXPosition(), setYPosition()),
         ]
-    
+
     );
 
     gameHasStarted = true;
 }
-
-
-
 
 function setXPosition() {
     let xPosition = 400 + Math.random() * 2000;
@@ -106,4 +103,21 @@ function setYPosition() {
     } else {
         return 30;
     }
+}
+
+function enemyStartPosition(factor) {
+    return factor + Math.random() * 500;
+}
+
+function checkProgression(characterPosition, enemiesArr) {
+    if (characterPosition > 900 && enemiesArr.length < 5) {
+        spawnEnemies(enemiesArr, 1500, 0.5);
+    }
+}
+
+function spawnEnemies(enemiesArr, factor, speedFactor) {
+    let newEnemies = [new Chicken(enemyStartPosition(factor), speedFactor), new Chicken(enemyStartPosition(factor), speedFactor), new Chicken(enemyStartPosition(factor), speedFactor), new Chicken(enemyStartPosition(factor), speedFactor)];
+    newEnemies.forEach(enemy => {
+        enemiesArr.push(enemy);
+    });
 }

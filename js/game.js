@@ -23,8 +23,8 @@ function gameLoop() {
     animationFrame = requestAnimationFrame(gameLoop);
 }
 
-function gameEnd(score, won){
-    showEndscreen(score, won);
+function gameEnd(score, won, bestScores){
+    showEndscreen(score, won, bestScores);
 }
 
 function backToGame(){
