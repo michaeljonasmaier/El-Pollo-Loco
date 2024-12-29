@@ -6,5 +6,6 @@ function startGame(){
     endDialog.style.display = "none";
     pauseDialog.close();
     isPaused = false;
+    clearAllIntervals();
     init();
 }

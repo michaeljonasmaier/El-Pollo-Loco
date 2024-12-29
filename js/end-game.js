@@ -1,10 +1,6 @@
 function showEndscreen(score, won) {
     let dialog = document.getElementById("endscreen");
-    let canvas = document.getElementById("canvas");
-    //dialog.open = true;
-    for (let i = 0; i < 9999; i++) {
-        window.clearInterval(i);
-    }
+    clearAllIntervals();
     dialog.innerHTML += getEndscreenTemplate(score, won);
     dialog.style.display = "block";
 }

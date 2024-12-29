@@ -33,10 +33,17 @@ function backToGame(){
 }
 
 function showMenu(){
+    clearAllIntervals();
     pauseScreen.close();
     isPaused = false;
     let startDialog = document.getElementById("startscreen");
     startDialog.style.display = "block";
+}
+
+function clearAllIntervals(){
+    for (let i = 0; i < 9999; i++) {
+        window.clearInterval(i);
+    }
 }
 
 window.addEventListener('keydown', (event) => {
