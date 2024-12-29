@@ -102,7 +102,7 @@ body {
 .screen-btn {
     position: absolute;
     top: 350px;
-    left: 380px;
+    left: 460px;
     width: 150px;
     height: 50px;
     border-radius: 20px;
@@ -121,7 +121,7 @@ body {
 
 .back-btn {
     font-size: 18px;
-    left: 210px;
+    left: 240px;
 }
 
 .start-btn {
@@ -139,7 +139,7 @@ body {
 .won {
     position: absolute;
     left: 200px;
-    top: 100px;
+    top: 70px;
     width: 400px;
     height: 100px;
 }
@@ -151,12 +151,24 @@ body {
 }
 
 #score {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.97);
     position: absolute;
-    top: 240px;
-    left: 320px;
-    font-size: 30px;
+    text-align: center;
+    top: 220px;
+    left: 270px;
+    font-size: 24px;
     padding: 4px;
+    border-radius: 10px;
+}
+
+#highscore{
+    background-color: rgba(255, 255, 255, 0.973);
+    position: absolute;
+    text-align: center;
+    top: 200px;
+    left: 480px;
+    font-size: 18px;
+    padding: 8px;
     border-radius: 10px;
 }
 

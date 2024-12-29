@@ -211,7 +211,7 @@ class World {
         } else if (this.level.endboss.energy == 0) {
             this.level.endboss.animationStyle = "dead";
             this.character.won = true;
-           this.prepareGameEnd();
+           this.prepareGameEnd(this.character.won);
         }
     }
 

@@ -2,7 +2,7 @@ class Highscore{
     score = 0;
     time = 0;
     totalScore = 0;
-    bestScores = [300, 400, 100, 20, 1000];
+    bestScores = [0,0,0];
 
     constructor(){
         this.getFromLocalStorage();
