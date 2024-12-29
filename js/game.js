@@ -1,10 +1,18 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let gameover = false;
+let time
 
 function init() {
+    initLevel();
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
+    
+}
+
+function gameEnd(score, won){
+    showEndscreen(score, won);
 }
 
 window.addEventListener('keydown', (event) => {

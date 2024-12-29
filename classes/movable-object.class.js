@@ -36,11 +36,11 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if(this instanceof ThrowableObject || this instanceof Endboss || this instanceof Cactus) {
+        if (this instanceof ThrowableObject || this instanceof Endboss || this instanceof Cactus) {
             return true;
         } else {
-            return this.y < 150;
-        } 
+            return this.y < 250;
+        }
     }
 
     flipImage(ctx) {

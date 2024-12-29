@@ -12,6 +12,7 @@
     <script src="./classes/keyboard.class.js"></script>
     <script src="./classes/character.class.js"></script>
     <script src="./classes/status-bar.class.js"></script>
+    <script src="./classes/highscore.class.js"></script>
     <script src="./classes/world.class.js"></script>
     <script src="./classes/chicken.class.js"></script>
     <script src="./classes/cloud.class.js"></script>
@@ -23,9 +24,12 @@
     <script src="./classes/endboss.class.js"></script>
     <script src="./levels/level1.js"></script>
 
+    <script src="./js/window-size.js" defer></script>
     <script src="./js/game.js"></script>
     <script src="./js/start-game.js"></script>
+    <script src="./js/end-game.js"></script>
     <script src="./js/animate-clouds.js" defer></script>
+    <script src="./js/animate-chickens.js" defer></script>
 </head>
 
 <body>
@@ -33,22 +37,56 @@
         <div class="main-content">
             <dialog class="startscreen" id="startscreen" open="true">
                 <img class="layer" src="img/5_background/layers/air.png" alt="">
-                <canvas class="cloud-canvas" id="cloudCanvas"></canvas>
+                <canvas class="cloud-canvas" id="cloudCanvas" width="720" height="480"></canvas>
                 <img class="layer" src="img/5_background/layers/3_third_layer/1.png" alt="">
                 <img class="layer" src="img/5_background/layers/2_second_layer/1.png" alt="">
                 <img class="layer" src="img/5_background/layers/1_first_layer/1.png" alt="">
                 <h1 class="title">El Pollo Loco</h1>
                 <img class="pepe-gif" src="img/2_character_pepe/1_idle/long_idle/idle.gif" alt="">
-                <button id="start_btn" onclick="startGame()">Start</button>
-                
+                <canvas class="cloud-canvas" id="chickenCanvas" width="720" height="480"></canvas>
+
+                <button class="screen-btn" id="start_btn" onclick="startGame()">Start</button>
+
             </dialog>
 
             <canvas id="canvas" width="720" height="480">
 
             </canvas>
+
+            <div class="control-div" id="control_div">
+                <div class="control-div-left">
+                    <div class="control-item">
+                        <span>Move right</span>
+                        <img src="./img/11_icons/rechts.png" alt="">
+                    </div>
+                    <div class="control-item">
+                        <span>Move left</span>
+                        <img src="./img/11_icons/links.png" alt="">
+                    </div>
+                </div>
+                <div class="control-div-right">
+                    <div class="control-item">
+                        <img src="./img/11_icons/raum.png" alt="">
+                        <span>Jump</span>
+                    </div>
+                    <div class="control-item">
+                        <img src="./img/11_icons/buchstabe-d.png" alt="">
+                        <span>Throw</span>
+                    </div>
+                </div>
+            </div>
+
+            <dialog class="startscreen" id="endscreen">
+
+            </dialog>
+
+            <dialog class="turn-device" id="turn_device">
+                Turn your device to play El Pollo loco
+            </dialog>
+
         </div>
         <footer>
-            
+
         </footer>
     </div>
 </body>

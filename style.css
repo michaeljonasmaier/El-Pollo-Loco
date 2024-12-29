@@ -34,6 +34,8 @@ body {
     /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
+
+
 .full-content {
     width: 100%;
     display: flex;
@@ -46,6 +48,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100%;
     width: 100%;
 }
@@ -53,9 +56,11 @@ body {
 .startscreen {
     width: 720px;
     height: 480px;
+    top: calc(50% - 325px);
     color: #FFD013;
     font-family: 'Atma';
     padding: 0;
+    border: none;
 }
 
 .layer {
@@ -73,6 +78,12 @@ body {
     left: 100px;
 }
 
+.outro{
+    height: 300px;
+    top: 130px;
+    left: 30px;
+}
+
 .title {
     position: absolute;
     top: 0;
@@ -83,7 +94,7 @@ body {
     text-shadow: 8px 1px 0px #9A3A17;
 }
 
-#start_btn {
+.screen-btn {
     position: absolute;
     top: 350px;
     left: 380px;
@@ -97,7 +108,7 @@ body {
     border: solid 3px #9A3A17;
 }
 
-#start_btn:hover {
+.screen-btn:hover {
     background-color: #9A3A17;
     border-color: #FFD013;
     cursor: pointer;
@@ -109,6 +120,51 @@ body {
     left: 0;
     width: 720px;
     height: 480px;
+}
+
+.won{
+    position: absolute;
+    left: 200px;
+    top: 100px;
+    width: 400px;
+    height: 100px;
+}
+
+.lost{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#score{
+    background-color: white;
+    position: absolute;
+    top: 240px;
+    left: 320px;
+    font-size: 30px;
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.control-div{
+    display: flex;
+    font-family: 'Atma';
+    gap: 30px;
+}
+
+.control-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.control-item img{
+    height: 40px;
+}
+
+.d-none{
+    display: none;
 }
 
 footer {

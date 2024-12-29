@@ -1,10 +1,12 @@
 class Character extends MovableObject {
 
-    height = 280;
-    y = 80;
+    height = 180;
+    y = 250;
     speed = 4;
     numberBottles = 5;
     numberCoins = 0;
+    won = false;
+    offsetY = 100;
     IMAGES_IDLE = [
         "img/2_character_pepe/1_idle/idle/I-1.png",
         "img/2_character_pepe/1_idle/idle/I-2.png",
