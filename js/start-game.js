@@ -2,8 +2,8 @@ function startGame(){
     let startDialog = document.getElementById("startscreen");
     let endDialog = document.getElementById("endscreen");
     let pauseDialog = document.getElementById("pausescreen");
-    startDialog.close();
-    endDialog.close();
+    startDialog.style.display = "none";
+    endDialog.style.display = "none";
     pauseDialog.close();
     isPaused = false;
     init();

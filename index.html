@@ -35,7 +35,7 @@
 <body>
     <div class="full-content">
         <div class="main-content">
-            <dialog class="startscreen" id="startscreen" open="true">
+            <div class="startscreen" id="startscreen">
                 <img class="layer" src="img/5_background/layers/air.png" alt="">
                 <canvas class="cloud-canvas" id="cloudCanvas" width="720" height="480"></canvas>
                 <img class="layer" src="img/5_background/layers/3_third_layer/1.png" alt="">
@@ -47,7 +47,7 @@
 
                 <button class="screen-btn" id="start_btn" onclick="startGame()">Start</button>
 
-            </dialog>
+            </div>
 
             <canvas id="canvas" width="720" height="480">
 
@@ -76,8 +76,8 @@
                 </div>
             </div>
 
-            <dialog class="startscreen" id="endscreen">
-            </dialog>
+            <div class="startscreen" id="endscreen">
+            </div>
 
             <dialog class="turn-device" id="turn_device">
                 Turn your device to play El Pollo loco

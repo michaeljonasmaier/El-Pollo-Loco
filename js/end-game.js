@@ -6,7 +6,7 @@ function showEndscreen(score, won) {
         window.clearInterval(i);
     }
     dialog.innerHTML += getEndscreenTemplate(score, won);
-    dialog.open = true;
+    dialog.style.display = "block";
 }
 
 function getEndscreenTemplate(score, won) {

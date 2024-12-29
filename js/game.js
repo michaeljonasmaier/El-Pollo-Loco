@@ -36,7 +36,7 @@ function showMenu(){
     pauseScreen.close();
     isPaused = false;
     let startDialog = document.getElementById("startscreen");
-    startDialog.showModal();
+    startDialog.style.display = "block";
 }
 
 window.addEventListener('keydown', (event) => {

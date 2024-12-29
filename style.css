@@ -54,6 +54,7 @@ body {
 }
 
 .startscreen {
+    position: fixed;
     width: 720px;
     height: 480px;
     top: calc(50% - 325px);
@@ -61,6 +62,10 @@ body {
     font-family: 'Atma';
     padding: 0;
     border: none;
+}
+
+#endscreen{
+    display: none;
 }
 
 .layer {
