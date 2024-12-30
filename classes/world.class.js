@@ -25,7 +25,6 @@ class World {
         this.draw();
         this.startTimer();
         this.run();
-        console.log(this.highscore.bestScores);
     }
 
 
@@ -39,7 +38,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
 
-        this.addCharakterToMap(this.character);
+        this.addCharacterToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.level.endboss);
         this.addObjectsToMap(this.level.clouds);
@@ -80,7 +79,7 @@ class World {
         }
     }
     
-    addCharakterToMap(mo) {
+    addCharacterToMap(mo) {
         if (mo.otherDirection) {
             mo.flipImage(this.ctx);
         }
@@ -108,7 +107,7 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && this.character.numberBottles > 0) {
-            let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 100);
+            let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 20);
             this.throwableObjects.push(bottle);
             this.character.numberBottles--;
             this.bottleBar.setPercentage(this.character.numberBottles * 10);
@@ -116,29 +115,11 @@ class World {
     }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            this.checkEnemyCollision(enemy);
-        })
-
-        this.level.bottles.forEach((bottle, index) => {
-            this.checkBottleCollision(bottle, index)
-        })
-
-        this.level.coins.forEach((coin, index) => {
-            this.checkCoinCollision(coin, index);
-        })
-
-        this.level.cactuses.forEach((cactus, index) => {
-            this.checkCactusCollision(cactus, index);
-        })
-
-        this.throwableObjects.forEach((to, index) => {
-            if (this.level.endboss.isColliding(to)) {
-                this.level.endboss.energy--;
-                this.throwableObjects.splice(index, 1);
-                this.updateEndbossAnimation();
-            }
-        })
+        this.checkEnemyCollision();
+        this.checkBottleCollision();
+        this.checkCoinCollision();
+        this.checkCactusCollision();
+        this.checkThrowableObjectCollision();
 
         if (this.character.isColliding(this.level.endboss)) {
             this.character.hit();
@@ -147,44 +128,76 @@ class World {
 
     }
 
-    checkEnemyCollision(enemy) {
-        if (this.character.isColliding(enemy) && !enemy.dead) {
-            if (this.character.isAboveGround()) {
-                enemy.dead = true;
-            } else {
-                if (!this.character.isHurt()) {
-                    this.character.hit();
-                    this.healthBar.setPercentage(this.character.energy);
+    checkThrowableObjectCollision(){
+        this.throwableObjects.forEach((to, index) => {
+            if (this.level.endboss.isColliding(to)) {
+                this.checkEndbossEnergy();
+                to.splash(this.throwableObjects, index);       
+            }
+            this.level.enemies.forEach((enemy) => {
+                if(enemy.isColliding(to) && !enemy.dead && to.isAboveGround()){
+                    enemy.dead = true;
+                    to.needsGravity = false;
+                    to.splash(this.throwableObjects, index);
+                }
+            });
+        })
+    }
+
+    checkEndbossEnergy(){
+        this.level.endboss.energy--;
+        this.updateEndbossAnimation();
+        if(this.level.endboss.energy == 3){
+            spawnTurbochickens(this.level.enemies);
+        }
+    }
+
+    checkEnemyCollision() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && !enemy.dead) {
+                if (this.character.isAboveGround()) {
+                    enemy.dead = true;
+                } else {
+                    if (!this.character.isHurt()) {
+                        this.character.hit();
+                        this.healthBar.setPercentage(this.character.energy);
+                    }
                 }
             }
-        }
+        })
     }
 
-    checkBottleCollision(bottle, index) {
-        if (this.character.isColliding(bottle)) {
-            this.level.bottles.splice(index, 1);
-            if (this.character.numberBottles < 10) {
-                this.character.numberBottles++;
-                this.updateBottleBar();
+    checkBottleCollision() {
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.level.bottles.splice(index, 1);
+                if (this.character.numberBottles < 10) {
+                    this.character.numberBottles++;
+                    this.updateBottleBar();
+                }
             }
-        }
+        })
     }
 
-    checkCoinCollision(coin, index) {
-        if (this.character.isColliding(coin)) {
-            this.character.numberCoins++;
-            this.level.coins.splice(index, 1);
-            this.highscore.plusScore();
-            this.updateCoinBar();
-        }
+    checkCoinCollision() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.character.numberCoins++;
+                this.level.coins.splice(index, 1);
+                this.highscore.plusScore();
+                this.updateCoinBar();
+            }
+        })
     }
 
-    checkCactusCollision(cactus, index) {
-        if (this.character.isColliding(cactus)) {
-            this.character.hit();
-            this.level.cactuses[index].applyGravity();
-            this.healthBar.setPercentage(this.character.energy);
-        }
+    checkCactusCollision() {
+        this.level.cactuses.forEach((cactus, index) => {
+            if (this.character.isColliding(cactus)) {
+                this.character.hit();
+                this.level.cactuses[index].applyGravity();
+                this.healthBar.setPercentage(this.character.energy);
+            }
+        })
     }
 
     updateBottleBar() {

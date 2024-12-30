@@ -7,6 +7,7 @@ class Character extends MovableObject {
     numberCoins = 0;
     won = false;
     offsetY = 100;
+    isFalling = false;
     IMAGES_IDLE = [
         "img/2_character_pepe/1_idle/idle/I-1.png",
         "img/2_character_pepe/1_idle/idle/I-2.png",
@@ -114,6 +115,12 @@ class Character extends MovableObject {
     checkIfJumping(){
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
+        }
+    }
+
+    checkifFalling(){
+        if(this.isAboveGround){
+            
         }
     }
 

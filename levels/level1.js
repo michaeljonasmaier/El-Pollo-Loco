@@ -5,10 +5,10 @@ let gameHasStarted = false;
 function initLevel() {
     level1 = new Level(
         [
-            new Chicken(enemyStartPosition(600), 0.25),
-            new Chicken(enemyStartPosition(600), 0.25),
-            new Chicken(enemyStartPosition(600), 0.25),
-            new Chicken(enemyStartPosition(600), 0.25),
+            new Chicken(enemyStartPosition(600), 370, 0.25, 60),
+            new Chicken(enemyStartPosition(600), 370, 0.25, 60),
+            new Chicken(enemyStartPosition(600), 370, 0.25, 60),
+            new Chicken(enemyStartPosition(600), 370, 0.25, 60),
 
         ],
         new Endboss(),
@@ -111,12 +111,32 @@ function enemyStartPosition(factor) {
 
 function checkProgression(characterPosition, enemiesArr) {
     if (characterPosition > 900 && enemiesArr.length < 5) {
-        spawnEnemies(enemiesArr, 1500, 0.5);
+        spawnEnemies(enemiesArr, 1500, 0.8);
     }
 }
 
 function spawnEnemies(enemiesArr, factor, speedFactor) {
-    let newEnemies = [new Chicken(enemyStartPosition(factor), speedFactor), new Chicken(enemyStartPosition(factor), speedFactor), new Chicken(enemyStartPosition(factor), speedFactor), new Chicken(enemyStartPosition(factor), speedFactor)];
+    let newEnemies = [
+        new Chicken(enemyStartPosition(factor), 320, speedFactor, 120), 
+        new Chicken(enemyStartPosition(factor), 320, speedFactor, 120), 
+        new Chicken(enemyStartPosition(factor), 320, speedFactor, 120), 
+        new Chicken(enemyStartPosition(factor), 320, speedFactor, 120)
+    ];
+    newEnemies.forEach(enemy => {
+        enemiesArr.push(enemy);
+    });
+}
+
+function spawnTurbochickens(enemiesArr){
+    let newEnemies = [
+        new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
+        new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
+        new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
+        new Turbochicken(enemyStartPosition(2800), 320, 120, true),
+        new Turbochicken(enemyStartPosition(1600), 320, 120, false), 
+        new Turbochicken(enemyStartPosition(1600), 320, 120, false), 
+        new Turbochicken(enemyStartPosition(1600), 320, 120, false)
+    ];
     newEnemies.forEach(enemy => {
         enemiesArr.push(enemy);
     });

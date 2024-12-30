@@ -17,7 +17,6 @@ let loadedImages = chickenImages.map(src => {
 });
 
 Promise.all(loadedImages.map(img => new Promise(resolve => img.onload = resolve))).then(() => {
-    console.log(loadedImages)
     setInterval(() => {
         chickenCtx.clearRect(0, 0, chickenCanvas.width, chickenCanvas.height);
         drawChicken();

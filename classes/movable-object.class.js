@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2;
     energy = 100;
     lastHit = 0;
+    needsGravity = true;
 
     jump() {
         this.speedY = 30;
@@ -28,7 +29,7 @@ class MovableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if (this.needsGravity && (this.isAboveGround() || this.speedY > 0)) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -36,8 +37,10 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject || this instanceof Endboss || this instanceof Cactus) {
+        if (this instanceof Endboss || this instanceof Cactus) {
             return true;
+        } else if (this instanceof ThrowableObject){
+            return this.y < 370;
         } else {
             return this.y < 250;
         }
@@ -62,11 +65,13 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.energy -= 5;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+        if(!isPaused){
+            this.energy -= 5;
+            if (this.energy < 0) {
+                this.energy = 0;
+            } else {
+                this.lastHit = new Date().getTime();
+            }
         }
     }
 
