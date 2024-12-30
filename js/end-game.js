@@ -1,5 +1,4 @@
 function showEndscreen(score, won, bestScores) {
-    console.log(bestScores);
     let dialog = document.getElementById("endscreen");
     clearAllIntervals();
     dialog.innerHTML += getEndscreenTemplate(score, won, bestScores);

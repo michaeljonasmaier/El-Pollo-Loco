@@ -19,6 +19,10 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
+    fall(){
+        this.y += 30;
+    }
+
     playAnimation(images) {
         //Walk Animation
         let i = this.currentImage % images.length // Modulo ist der Rest also: i = 0/6 => Rest 0, 1/6 => Rest 1, ... also 0,1,2,3,4,5, 0,1,2,3,...
@@ -66,7 +70,7 @@ class MovableObject extends DrawableObject {
 
     hit() {
         if(!isPaused){
-            this.energy -= 5;
+            this.energy -= 10;
             if (this.energy < 0) {
                 this.energy = 0;
             } else {

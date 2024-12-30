@@ -118,12 +118,6 @@ class Character extends MovableObject {
         }
     }
 
-    checkifFalling(){
-        if(this.isAboveGround){
-            
-        }
-    }
-
     playJumpingAnimation() {
         setInterval(() => {
             if (this.isAboveGround() && !this.isDead()) {
@@ -133,11 +127,20 @@ class Character extends MovableObject {
      }
 
     playDeadAnimation() {
-        setInterval(() => {
+        let deadIntervall = setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
+                this.needsGravity = false;
+                //this.fall();
+                console.log("fall")
+                if(!((this.currentImage % this.IMAGES_DEAD.length) == this.IMAGES_DEAD.length-1)){   
+                    this.playAnimation(this.IMAGES_DEAD);
+                } else {
+                    this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length-1];
+            
+                }
             }
-        }, 150);
+            
+        }, 70);
     }
 
     playHurtAnimation() {

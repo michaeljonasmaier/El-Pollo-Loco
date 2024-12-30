@@ -78,7 +78,7 @@ class World {
             mo.flipImageBack(this.ctx);
         }
     }
-    
+
     addCharacterToMap(mo) {
         if (mo.otherDirection) {
             mo.flipImage(this.ctx);
@@ -99,11 +99,10 @@ class World {
             if (this.character.isDead()) {
                 this.prepareGameEnd(this.character.won);
             }
-
         }, 100)
     }
 
-   
+
 
     checkThrowObjects() {
         if (this.keyboard.D && this.character.numberBottles > 0) {
@@ -128,14 +127,14 @@ class World {
 
     }
 
-    checkThrowableObjectCollision(){
+    checkThrowableObjectCollision() {
         this.throwableObjects.forEach((to, index) => {
             if (this.level.endboss.isColliding(to)) {
                 this.checkEndbossEnergy();
-                to.splash(this.throwableObjects, index);       
+                to.splash(this.throwableObjects, index);
             }
             this.level.enemies.forEach((enemy) => {
-                if(enemy.isColliding(to) && !enemy.dead && to.isAboveGround()){
+                if (enemy.isColliding(to) && !enemy.dead && to.isAboveGround()) {
                     enemy.dead = true;
                     to.needsGravity = false;
                     to.splash(this.throwableObjects, index);
@@ -144,10 +143,10 @@ class World {
         })
     }
 
-    checkEndbossEnergy(){
+    checkEndbossEnergy() {
         this.level.endboss.energy--;
         this.updateEndbossAnimation();
-        if(this.level.endboss.energy == 3){
+        if (this.level.endboss.energy == 3) {
             spawnTurbochickens(this.level.enemies);
         }
     }
@@ -159,6 +158,7 @@ class World {
                     enemy.dead = true;
                 } else {
                     if (!this.character.isHurt()) {
+                        console.log("hit")
                         this.character.hit();
                         this.healthBar.setPercentage(this.character.energy);
                     }
@@ -224,7 +224,7 @@ class World {
         } else if (this.level.endboss.energy == 0) {
             this.level.endboss.animationStyle = "dead";
             this.character.won = true;
-           this.prepareGameEnd(this.character.won);
+            this.prepareGameEnd(this.character.won);
         }
     }
 
@@ -254,9 +254,9 @@ class World {
 
     startTimer() {
         setInterval(() => {
-            if(!isPaused){
+            if (!isPaused) {
                 this.highscore.time++
-            }     
+            }
         }, 1000);
     }
 
@@ -264,10 +264,29 @@ class World {
         return this.highscore.calculateTotalScore(this.character.energy, won);
     }
 
-    prepareGameEnd(won){
-        let finalScore = this.getFinalScore(won);
-        let bestScoreList = this.highscore.getBestScoreList();
-        this.highscore.safeToLocalStorage();
-        gameEnd(finalScore, this.character.won, bestScoreList);
+    prepareGameEnd(won) {
+        let counter = 0;
+        let outro = setInterval(() => {
+            if (counter == 2) {
+                let finalScore = this.getFinalScore(won);
+                let bestScoreList = this.highscore.getBestScoreList();
+                this.highscore.safeToLocalStorage();
+                gameEnd(finalScore, this.character.won, bestScoreList);
+                clearInterval(outro)
+            } else {
+                if(won){
+                    this.killAllEnemies();
+                }
+            }
+            counter++
+        }, 1000);
+
+
+    }
+
+    killAllEnemies(){
+        this.level.enemies.forEach(enemy => {
+            enemy.dead = true;
+        });
     }
 }
