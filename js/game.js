@@ -41,7 +41,6 @@ function backToGame() {
 function showMenu() {
     let endDialog = document.getElementById("endscreen");
     endDialog.style.display = "none";
-    clearAllIntervals();
     pauseScreen.close();
     isPaused = false;
     let startDialog = document.getElementById("startscreen");

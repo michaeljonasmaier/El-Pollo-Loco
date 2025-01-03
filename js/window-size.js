@@ -7,7 +7,6 @@ window.addEventListener('resize', checkWindowHeight);
 
 function checkWindowWidth() {
   if (window.innerWidth < 570) {
-    setTouchControl();
     document.getElementById("turn_device").showModal();
     document.getElementById("canvas").classList.add("d-none");
   } else {

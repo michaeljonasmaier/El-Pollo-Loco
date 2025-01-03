@@ -219,8 +219,9 @@ class World {
 
     checkCactusCollision() {
         this.level.cactuses.forEach((cactus, index) => {
-            if (this.character.isColliding(cactus)) {
+            if (this.character.isColliding(cactus) && !cactus.damageDone) {
                 this.character.hit();
+                cactus.damageDone = true;
                 this.level.cactuses[index].applyGravity();
                 this.healthBar.setPercentage(this.character.energy);
             }

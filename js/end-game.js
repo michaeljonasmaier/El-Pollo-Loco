@@ -1,5 +1,6 @@
 function showEndscreen(score, won, bestScores) {
     let dialog = document.getElementById("endscreen");
+    hideTouchControl();
     clearAllIntervals();
     dialog.innerHTML += getEndscreenTemplate(score, won, bestScores);
     dialog.style.display = "block";
