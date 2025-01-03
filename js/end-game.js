@@ -20,7 +20,7 @@ function getEndscreenTemplate(score, won, bestScores) {
             <canvas class="cloud-canvas" id="chickenCanvas" width="720" height="480"></canvas>
             
             <button class="screen-btn start-btn" onclick="startGame()">Play again</button>
-            <button class="screen-btn back-btn" onclick="backToGame()">Back to menu</button>`
+            <button class="screen-btn back-btn" onclick="showMenu()">Back to menu</button>`
     } else {
         return /*html*/`
         <img class="layer" src="img/5_background/layers/air.png" alt="">
@@ -32,7 +32,7 @@ function getEndscreenTemplate(score, won, bestScores) {
         <img class="pepe-gif outro" src="img/2_character_pepe/1_idle/long_idle/idle.gif" alt="">
         <canvas class="cloud-canvas" id="chickenCanvas" width="720" height="480"></canvas>
         <button class="screen-btn start-btn" onclick="startGame()">Play again</button>
-        <button class="screen-btn back-btn" onclick="backToGame()">Back to menu</button>`
+        <button class="screen-btn back-btn" onclick="showMenu()">Back to menu</button>`
     }
 }
 
