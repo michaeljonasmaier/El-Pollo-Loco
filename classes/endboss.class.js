@@ -69,6 +69,7 @@ class Endboss extends MovableObject {
             } else if (this.animationStyle  == "attack"){
                 this.playAnimation(this.IMAGES_ATTACK);
             } else if (this.animationStyle == "hurt"){
+                this.moveLeftFast();
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.animationStyle == "dead"){
                 this.playAnimation(this.IMAGES_DEAD);

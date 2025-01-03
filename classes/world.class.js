@@ -104,9 +104,9 @@ class World {
         if (this.character.numberBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 20);
             this.throwableObjects.push(bottle);
-            console.log("Anzahl TO: " + this.throwableObjects);
             this.level.bottlesOnGround.push(bottle);
             this.character.numberBottles--;
+            this.character.inactiveTime = 0;
             this.bottleBar.setPercentage(this.character.numberBottles * 10);
         }
     }

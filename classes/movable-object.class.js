@@ -19,6 +19,10 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
+    moveLeftFast() {
+        this.x -= this.speed*2;
+    }
+
     fall(){
         this.y += 30;
     }

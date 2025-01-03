@@ -174,7 +174,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {
                 this.inactiveTime++;
-                if (this.inactiveTime > 80) {
+                if (this.inactiveTime > 70) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);
