@@ -1,0 +1,315 @@
+body {
+    margin: 0;
+}
+
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Atma';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./fonts/atma-v16-latin-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* atma-600 - latin */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Atma';
+    font-style: normal;
+    font-weight: 600;
+    src: url('./fonts/atma-v16-latin-600.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* atma-700 - latin */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Atma';
+    font-style: normal;
+    font-weight: 700;
+    src: url('./fonts/atma-v16-latin-700.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+
+
+.full-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+
+}
+
+.background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url("img/5_background/main_background.png");
+    background-position: center;
+    background-size: cover;
+    filter: blur(10px);
+    z-index: -1;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.startscreen {
+    position: fixed;
+    width: 720px;
+    height: 480px;
+    top: calc(50% - 325px);
+    color: #FFD013;
+    font-family: 'Atma';
+    padding: 0;
+    border: none;
+}
+
+#endscreen {
+    display: none;
+}
+
+.layer {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.pepe-gif {
+    height: 370px;
+    position: absolute;
+    top: 60px;
+    left: 100px;
+}
+
+.outro {
+    height: 300px;
+    top: 130px;
+    left: 30px;
+}
+
+.title {
+    position: absolute;
+    top: 0;
+    left: 200px;
+    font-size: 120px;
+    text-align: center;
+    line-height: 1;
+    text-shadow: 8px 1px 0px #9A3A17;
+}
+
+.screen-btn {
+    position: absolute;
+    top: 350px;
+    left: 460px;
+    width: 150px;
+    height: 50px;
+    border-radius: 20px;
+    background-color: #FFD013;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border: solid 3px #9A3A17;
+}
+
+.screen-btn:hover {
+    background-color: #9A3A17;
+    border-color: #FFD013;
+    cursor: pointer;
+}
+
+.back-btn {
+    font-size: 18px;
+    left: 240px;
+}
+
+.start-btn {
+    font-size: 18px;
+}
+
+.cloud-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 720px;
+    height: 480px;
+}
+
+.won {
+    position: absolute;
+    left: 200px;
+    top: 70px;
+    width: 400px;
+    height: 100px;
+}
+
+.lost {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#score {
+    background-color: rgba(255, 255, 255, 0.97);
+    position: absolute;
+    text-align: center;
+    top: 220px;
+    left: 270px;
+    font-size: 24px;
+    padding: 4px;
+    border-radius: 10px;
+}
+
+#highscore {
+    background-color: rgba(255, 255, 255, 0.973);
+    position: absolute;
+    text-align: center;
+    top: 200px;
+    left: 480px;
+    font-size: 18px;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.control-div {
+    display: flex;
+    font-family: 'Atma';
+    font-weight: 600;
+    gap: 30px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.control-item img {
+    height: 40px;
+}
+
+.d-none {
+    display: none;
+}
+
+.pausescreen {
+    width: 720px;
+    height: 480px;
+    background: none;
+    color: #FFD013;
+    font-family: 'Atma';
+    font-size: 24px;
+    padding: 0;
+    border: none;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.pausescreen-btn {
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    background-color: #FFD013;
+    color: white;
+    font-size: 16px;
+    border: solid 2px #9A3A17;
+}
+
+.pausescreen-btn:hover {
+    background-color: #9A3A17;
+    border-color: #FFD013;
+    cursor: pointer;
+}
+
+.pausescreen::backdrop {
+    backdrop-filter: blur(8px);
+}
+
+.turn-device{
+    border-radius: 10px;
+    border-color: #9A3A17;
+    font-family: 'Atma';
+    font-weight: 600;
+    color: #9A3A17;
+}
+
+.turn-device img{
+    height: 30px;
+}
+
+.turn-device::backdrop {
+    backdrop-filter: blur(12px);
+}
+
+footer {
+    height: 100px;
+    background-color: black;
+}
+
+@media(max-width: 932px) {
+    #canvas {
+        height: 350px;
+        width: 525px;
+    }
+
+    .startscreen {
+        height: 350px;
+        width: 525px;
+        top: calc(50% - 268px);
+    }
+
+    .title {
+        font-size: 90px;
+        left: 150px;
+    }
+
+    .pepe-gif {
+        height: 280px;
+        top: 50px;
+        left: 80px;
+    }
+
+    .screen-btn {
+        top: 270px;
+        left: 280px;
+    }
+
+    .cloud-canvas {
+        height: 350px;
+        width: 525px;
+    }
+}
+
+@media(max-width: 570px) {
+    .startscreen {
+        height: 366px;
+        width: 550px;
+    }
+}
+
+@media(max-height: 555px) {
+    .startscreen {
+        top: auto;
+    }
+}
