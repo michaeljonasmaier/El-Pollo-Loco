@@ -94,6 +94,7 @@ class World {
             this.checkCollisions();
             checkProgression(this.character.x, this.level.enemies);
             if (this.character.isDead()) {
+                this.character.playDeadAnimation();
                 this.prepareGameEnd(this.character.won);
             }
         }, 100)
@@ -219,7 +220,7 @@ class World {
 
     checkCactusCollision() {
         this.level.cactuses.forEach((cactus, index) => {
-            if (this.character.isColliding(cactus) && !cactus.damageDone) {
+            if (this.character.isColliding(cactus)) { // && !cactus.damageDone
                 this.character.hit();
                 cactus.damageDone = true;
                 this.level.cactuses[index].applyGravity();
@@ -295,7 +296,7 @@ class World {
     prepareGameEnd(won) {
         let counter = 0;
         let outro = setInterval(() => {
-            if (counter == 2) {
+            if (counter == 1) {
                 let finalScore = this.getFinalScore(won);
                 let bestScoreList = this.highscore.getBestScoreList();
                 this.highscore.safeToLocalStorage();

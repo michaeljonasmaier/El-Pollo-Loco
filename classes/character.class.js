@@ -9,6 +9,7 @@ class Character extends MovableObject {
     offsetY = 100;
     isFalling = false;
     inactiveTime = 0;
+    animationDone = false;
     IMAGES_IDLE = [
         "img/2_character_pepe/1_idle/idle/I-1.png",
         "img/2_character_pepe/1_idle/idle/I-2.png",
@@ -92,7 +93,6 @@ class Character extends MovableObject {
     animate() {
         this.checkIfMoving();
         this.playJumpingAnimation();
-        this.playDeadAnimation();
         this.playHurtAnimation();
         this.playWalkAnimation();
         this.playIdleAnimation();
@@ -146,16 +146,12 @@ class Character extends MovableObject {
     }
 
     playDeadAnimation() {
-        let deadIntervall = setInterval(() => {
-            if (this.isDead()) {
-                this.needsGravity = false;
-                if (!((this.currentImage % this.IMAGES_DEAD.length) == this.IMAGES_DEAD.length - 1)) {
-                    this.playAnimation(this.IMAGES_DEAD);
-                } else {
-                    this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
-                }
-            }
-        }, 70);
+        this.needsGravity = false;
+        this.currentImage = 0;
+            let deadIntervall = setInterval(() => {
+                this.fall()
+                this.playAnimation(this.IMAGES_DEAD);    
+            }, 100);
     }
 
     playHurtAnimation() {
@@ -168,7 +164,7 @@ class Character extends MovableObject {
 
     playWalkAnimation() {
         setInterval(() => {
-            if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround() && !this.isDead()) {
+            if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 50);
