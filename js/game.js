@@ -6,6 +6,12 @@ let time;
 let isPaused = false;
 let pauseScreen;
 
+let leftArrow = document.getElementById("arrow_left");
+let rightArrow = document.getElementById("arrow_right");
+let jump = document.getElementById("arrow_up");
+let bottle = document.getElementById("bottle");
+let letterB = document.getElementById("letter_b");
+
 function init() {
     initLevel();
     canvas = document.getElementById("canvas");
@@ -84,8 +90,6 @@ window.addEventListener('keydown', (event) => {
             isPaused = true;
         }
     }
-
-
 })
 
 window.addEventListener('keyup', (event) => {
@@ -117,3 +121,54 @@ window.addEventListener('keyup', (event) => {
         keyboard.B = false;
     }
 })
+
+leftArrow.addEventListener('touchstart', function() {
+    keyboard.LEFT = true;
+});
+
+rightArrow.addEventListener('touchstart', function() {
+    keyboard.RIGHT = true;
+});
+
+jump.addEventListener('touchstart', function() {
+    keyboard.SPACE = true;
+});
+
+bottle.addEventListener('touchstart', function() {
+    if(!keyboard.D){
+        keyboard.D = true;
+        world.throwObject();
+    }
+});
+
+leftArrow.addEventListener('touchend', function() {
+    keyboard.LEFT = false;
+});
+
+rightArrow.addEventListener('touchend', function() {
+    keyboard.RIGHT = false;
+});
+
+jump.addEventListener('touchend', function() {
+    keyboard.SPACE = false;
+});
+
+bottle.addEventListener('touchend', function() {
+    keyboard.D = false;
+});
+
+letterB.addEventListener('touchend', function() {
+    keyboard.B = false;
+    letterB.style.display = "none";
+});
+
+function collectBottleMobile(){
+    if(isTouch()){
+        letterB.style.display = "block";
+        letterB.addEventListener('touchstart', function() {
+            keyboard.B = true;
+            world.collectBottleOnGround();
+        });
+    }
+}
+

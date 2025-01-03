@@ -116,6 +116,7 @@ class World {
         this.checkCoinCollision();
         this.checkCactusCollision();
         this.checkThrowableObjectCollision();
+        this.checkBottleOnGroundCollision();
 
         if (this.character.isColliding(this.level.endboss)) {
             this.character.hit();
@@ -175,6 +176,14 @@ class World {
                     this.character.numberBottles++;
                     this.updateBottleBar();
                 }
+            }
+        })
+    }
+
+    checkBottleOnGroundCollision(){
+        this.level.bottlesOnGround.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle) && bottle.isCollectable) {
+                collectBottleMobile();
             }
         })
     }

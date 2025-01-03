@@ -262,6 +262,21 @@ body {
     backdrop-filter: blur(12px);
 }
 
+.touch-left-div{
+    position: fixed;
+    display: flex;
+    gap: 5px;
+    left: 3%;
+    top: 80%;
+}
+
+.touch-right-div{
+    position: fixed;
+    display: flex;
+    right: 3%;
+    top: 80%;
+}
+
 footer {
     height: 100px;
     background-color: black;

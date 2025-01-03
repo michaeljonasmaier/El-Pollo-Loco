@@ -19,6 +19,7 @@ class ThrowableObject extends MovableObject {
     IMAGE_ONGROUND = "img/6_salsa_bottle/1_salsa_bottle_on_ground_press_b_key.png";
     damageDone = false;
     distance;
+    isCollectable = false;
 
     constructor(x, y) {
         super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
@@ -40,6 +41,7 @@ class ThrowableObject extends MovableObject {
         setInterval(() => {
             if (!this.isAboveGround()) {
                 this.img.src = this.IMAGE_ONGROUND;
+                this.isCollectable = true;
             } else {
                 if(this.needsGravity){
                     this.throw();
