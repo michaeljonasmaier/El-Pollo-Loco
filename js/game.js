@@ -5,6 +5,7 @@ let gameover = false;
 let time;
 let isPaused = false;
 let pauseScreen;
+let sounds = new Sounds();
 
 let leftArrow = document.getElementById("arrow_left");
 let rightArrow = document.getElementById("arrow_right");
@@ -30,7 +31,16 @@ function gameLoop() {
 }
 
 function gameEnd(score, won, bestScores) {
+    
     showEndscreen(score, won, bestScores);
+}
+
+function playFinalMusic(won) {
+    if (won) {
+        sounds.playSoundIfAllowed(sounds.win_sound);
+    } else {
+        sounds.playSoundIfAllowed(sounds.lose_sound);
+    }
 }
 
 function backToGame() {
@@ -123,50 +133,50 @@ window.addEventListener('keyup', (event) => {
     }
 })
 
-leftArrow.addEventListener('touchstart', function() {
+leftArrow.addEventListener('touchstart', function () {
     keyboard.LEFT = true;
 });
 
-rightArrow.addEventListener('touchstart', function() {
+rightArrow.addEventListener('touchstart', function () {
     keyboard.RIGHT = true;
 });
 
-jump.addEventListener('touchstart', function() {
+jump.addEventListener('touchstart', function () {
     keyboard.SPACE = true;
 });
 
-bottle.addEventListener('touchstart', function() {
-    if(!keyboard.D){
+bottle.addEventListener('touchstart', function () {
+    if (!keyboard.D) {
         keyboard.D = true;
         world.throwObject();
     }
 });
 
-leftArrow.addEventListener('touchend', function() {
+leftArrow.addEventListener('touchend', function () {
     keyboard.LEFT = false;
 });
 
-rightArrow.addEventListener('touchend', function() {
+rightArrow.addEventListener('touchend', function () {
     keyboard.RIGHT = false;
 });
 
-jump.addEventListener('touchend', function() {
+jump.addEventListener('touchend', function () {
     keyboard.SPACE = false;
 });
 
-bottle.addEventListener('touchend', function() {
+bottle.addEventListener('touchend', function () {
     keyboard.D = false;
 });
 
-letterB.addEventListener('touchend', function() {
+letterB.addEventListener('touchend', function () {
     keyboard.B = false;
     letterB.style.display = "none";
 });
 
-function collectBottleMobile(){
-    if(isTouch()){
+function collectBottleMobile() {
+    if (isTouch()) {
         letterB.style.display = "block";
-        letterB.addEventListener('touchstart', function() {
+        letterB.addEventListener('touchstart', function () {
             keyboard.B = true;
             world.collectBottleOnGround();
         });

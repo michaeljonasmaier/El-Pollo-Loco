@@ -20,6 +20,10 @@ class ThrowableObject extends MovableObject {
     damageDone = false;
     distance;
     isCollectable = false;
+    sounds = new Sounds();
+    bottle_ground_sound = new Audio('audio/bottle_ground.mp3');
+    bottle_splash_sound = new Audio('audio/bottle_broken.mp3');
+    soundPlayed = false;
 
     constructor(x, y) {
         super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
@@ -41,6 +45,7 @@ class ThrowableObject extends MovableObject {
         setInterval(() => {
             if (!this.isAboveGround()) {
                 this.img.src = this.IMAGE_ONGROUND;
+                this.playBottleSOund();
                 this.isCollectable = true;
             } else {
                 if(this.needsGravity){
@@ -49,6 +54,13 @@ class ThrowableObject extends MovableObject {
                 }      
             }
         }, 50)
+    }
+
+    playBottleSOund(){
+        if(!this.soundPlayed){
+            this.sounds.playSoundIfAllowed(this.bottle_ground_sound);
+            this.soundPlayed = true;
+        }
     }
 
     throw() {
@@ -61,6 +73,7 @@ class ThrowableObject extends MovableObject {
 
     splash(toArr, index) {
         this.currentImage = 0;
+        this.sounds.playSoundIfAllowed(this.bottle_splash_sound);
         let splashIntervall = setInterval(() => {
             if(!((this.currentImage % this.IMAGES_SPLASHING.length) == this.IMAGES_SPLASHING.length-1)){
                 this.playAnimation(this.IMAGES_SPLASHING);

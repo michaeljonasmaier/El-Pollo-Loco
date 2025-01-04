@@ -11,7 +11,7 @@ class World {
     bottleBar = new StatusBar(3, "bottle", 30, 50, this.character.numberBottles * 10);
     throwableObjects = [];
     highscore = new Highscore();
-
+    sounds = new Sounds();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -103,6 +103,7 @@ class World {
     throwObject() {
         if (this.character.numberBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 20);
+            this.sounds.playSoundIfAllowed(this.character.throwing_sound);
             this.throwableObjects.push(bottle);
             this.level.bottlesOnGround.push(bottle);
             this.character.numberBottles--;
@@ -159,6 +160,7 @@ class World {
             if (this.character.isColliding(enemy) && !enemy.dead) {
                 if (this.character.isAboveGround() && this.character.speedY < 0) {
                     enemy.dead = true;
+                    this.sounds.playSoundIfAllowed(enemy.dead_sound);
                 } else {
                     if (!this.character.isHurt()) {
                         this.character.hit();
@@ -175,6 +177,7 @@ class World {
                 this.level.bottles.splice(index, 1);
                 if (this.character.numberBottles < 10) {
                     this.character.numberBottles++;
+                    this.sounds.playSoundIfAllowed(this.character.collecting_bottle_sound);
                     this.updateBottleBar();
                 }
             }
@@ -193,6 +196,7 @@ class World {
         this.level.bottlesOnGround.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.character.numberBottles++;
+                this.sounds.playSoundIfAllowed(this.character.collecting_bottle_sound);
                 this.throwableObjects.splice(index, 1);
                 this.level.bottlesOnGround.splice(index, 1);
                 this.updateBottleBar();
@@ -212,6 +216,7 @@ class World {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.numberCoins++;
+                this.sounds.playSoundIfAllowed(this.character.collecting_sound);
                 this.level.coins.splice(index, 1);
                 this.highscore.plusScore();
             }
@@ -295,6 +300,7 @@ class World {
 
     prepareGameEnd(won) {
         let counter = 0;
+        playFinalMusic(won);
         let outro = setInterval(() => {
             if (counter == 1) {
                 let finalScore = this.getFinalScore(won);
@@ -309,8 +315,6 @@ class World {
             }
             counter++
         }, 1000);
-
-
     }
 
     killAllEnemies() {
@@ -318,4 +322,6 @@ class World {
             enemy.dead = true;
         });
     }
+
+   
 }

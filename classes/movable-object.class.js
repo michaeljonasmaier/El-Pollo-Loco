@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     needsGravity = true;
+    sounds = new Sounds();
 
     jump() {
         this.speedY = 30;
