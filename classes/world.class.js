@@ -91,6 +91,7 @@ class World {
 
     run() {
         setInterval(() => {
+            console.log(this.sounds.soundOn);
             this.checkCollisions();
             checkProgression(this.character.x, this.level.enemies);
             if (this.character.isDead()) {

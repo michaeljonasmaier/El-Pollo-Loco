@@ -6,6 +6,7 @@ let time;
 let isPaused = false;
 let pauseScreen;
 let sounds = new Sounds();
+let soundOn = true;
 
 let leftArrow = document.getElementById("arrow_left");
 let rightArrow = document.getElementById("arrow_right");
@@ -31,7 +32,6 @@ function gameLoop() {
 }
 
 function gameEnd(score, won, bestScores) {
-    
     showEndscreen(score, won, bestScores);
 }
 
@@ -60,6 +60,20 @@ function showMenu() {
 function clearAllIntervals() {
     for (let i = 0; i < 9999; i++) {
         window.clearInterval(i);
+    }
+}
+
+function toggleSound(playSound) {
+    let soundIcon = document.getElementById("sound_icon");
+    let soundIconMute = document.getElementById("sound_icon_mute");
+    if (playSound) {
+        soundOn = true;
+        soundIcon.classList.remove("d-none");
+        soundIconMute.classList.add("d-none");
+    } else {
+        soundOn = false;
+        soundIcon.classList.add("d-none");
+        soundIconMute.classList.remove("d-none");
     }
 }
 

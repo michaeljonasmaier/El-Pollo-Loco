@@ -204,6 +204,16 @@ body {
     height: 40px;
 }
 
+.mute-div{
+    position: fixed;
+    top: calc(50% - 320px);
+    right: calc(50% - 410px);
+}
+
+.mute-div img{
+    height: 40px;
+}
+
 .d-none {
     display: none;
 }
@@ -334,6 +344,11 @@ footer {
         height: 350px;
         width: 525px;
     }
+
+    .mute-div{
+        top: calc(50% - 250px);
+        right: calc(50% - 320px);
+    }
 }
 
 @media(max-width: 570px) {
@@ -346,5 +361,9 @@ footer {
 @media(max-height: 555px) {
     .startscreen {
         top: auto;
+    }
+
+    .mute-div{
+        top: calc(50% - 180px);
     }
 }
