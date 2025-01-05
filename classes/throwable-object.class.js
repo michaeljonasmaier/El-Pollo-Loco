@@ -24,6 +24,7 @@ class ThrowableObject extends MovableObject {
     bottle_ground_sound = new Audio('audio/bottle_ground.mp3');
     bottle_splash_sound = new Audio('audio/bottle_broken.mp3');
     soundPlayed = false;
+    world;
 
     constructor(x, y) {
         super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
@@ -35,6 +36,7 @@ class ThrowableObject extends MovableObject {
         this.width = 60;
         this.speedY = 20;
         this.distance = 16 + Math.random()*8;
+        this.bottle_splash_sound.volume = 0.3;
         this.applyGravity();
         this.throw();
 
@@ -45,7 +47,7 @@ class ThrowableObject extends MovableObject {
         setInterval(() => {
             if (!this.isAboveGround()) {
                 this.img.src = this.IMAGE_ONGROUND;
-                this.playBottleSOund();
+                this.playBottleSound();
                 this.isCollectable = true;
             } else {
                 if(this.needsGravity){
@@ -56,9 +58,9 @@ class ThrowableObject extends MovableObject {
         }, 50)
     }
 
-    playBottleSOund(){
+    playBottleSound(){
         if(!this.soundPlayed){
-            this.sounds.playSoundIfAllowed(this.bottle_ground_sound);
+            this.sounds.playSoundIfAllowed(this.bottle_ground_sound, []);
             this.soundPlayed = true;
         }
     }
@@ -73,7 +75,7 @@ class ThrowableObject extends MovableObject {
 
     splash(toArr, index) {
         this.currentImage = 0;
-        this.sounds.playSoundIfAllowed(this.bottle_splash_sound);
+        this.sounds.playSoundIfAllowed(this.bottle_splash_sound, []);
         let splashIntervall = setInterval(() => {
             if(!((this.currentImage % this.IMAGES_SPLASHING.length) == this.IMAGES_SPLASHING.length-1)){
                 this.playAnimation(this.IMAGES_SPLASHING);

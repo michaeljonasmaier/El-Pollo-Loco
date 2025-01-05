@@ -49,6 +49,8 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ]
 
+    enboss_angry_sound = new Audio("audio/chicken_angry.mp3");
+
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);

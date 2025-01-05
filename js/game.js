@@ -45,9 +45,9 @@ function gameEnd(score, won, bestScores) {
 
 function playFinalMusic(won) {
     if (won) {
-        sounds.playSoundIfAllowed(sounds.win_sound);
+        sounds.playSoundIfAllowed(sounds.win_sound, world.allSounds);
     } else {
-        sounds.playSoundIfAllowed(sounds.lose_sound);
+        sounds.playSoundIfAllowed(sounds.lose_sound, world.allSounds);
     }
 }
 
@@ -66,7 +66,7 @@ function pauseSounds() {
 }
 
 function playBackgroundMusic(){
-    if(!sounds.isPlaying(world.backgroundMusic)){
+    if(!sounds.isPlaying(world.backgroundMusic) && !world.gameover){
         sounds.playSoundIfAllowed(world.backgroundMusic, world.allSounds);
     }
 }

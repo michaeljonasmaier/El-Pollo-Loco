@@ -14,6 +14,9 @@ class World {
     sounds = new Sounds();
     backgroundMusic = new Audio("audio/background_music.mp3");
     allSounds = [];
+    finalScore;
+    bestScoreList;
+    gameover = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -138,8 +141,9 @@ class World {
                     this.checkEndbossEnergy();
                     to.damageDone = true;
                     this.checkIfBottleOnGround(to);
+                    to.splash(this.throwableObjects, index);
+                    this.sounds.playSoundIfAllowed(this.level.endboss.enboss_angry_sound, this.allSounds);
                 }
-                to.splash(this.throwableObjects, index);
             }
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isColliding(to) && !enemy.dead && to.isAboveGround()) {
@@ -323,14 +327,15 @@ class World {
 
     prepareGameEnd(won) {
         let counter = 0;
-        playFinalMusic(won);
+        this.gameover = true;
+        
         let outro = setInterval(() => {
             if (counter == 1) {
-                let finalScore = this.getFinalScore(won);
-                let bestScoreList = this.highscore.getBestScoreList();
-                this.highscore.safeToLocalStorage();
-                gameEnd(finalScore, this.character.won, bestScoreList);
-                clearInterval(outro)
+                this.createHighscore(won)
+                gameEnd(this.finalScore, this.character.won, this.bestScoreList);
+                this.stopAllSounds();
+                playFinalMusic(won);
+                clearInterval(outro);
             } else {
                 if (won) {
                     this.killAllEnemies();
@@ -346,5 +351,10 @@ class World {
         });
     }
 
+    createHighscore(won){
+        this.finalScore = this.getFinalScore(won);
+        this.bestScoreList = this.highscore.getBestScoreList();
+        this.highscore.safeToLocalStorage();
+    }
 
 }
