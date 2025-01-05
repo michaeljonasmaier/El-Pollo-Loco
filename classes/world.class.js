@@ -12,6 +12,8 @@ class World {
     throwableObjects = [];
     highscore = new Highscore();
     sounds = new Sounds();
+    backgroundMusic = new Audio("audio/background_music.mp3");
+    allSounds = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -19,7 +21,7 @@ class World {
         this.keyboard = keyboard;
         this.ctx.font = '20px Arial'; // Schriftart und Größe
         this.ctx.fillStyle = '#89f7fe';
-
+        this.backgroundMusic.volume = 0.5;
         this.setWorld();
         this.draw();
         this.startTimer();
@@ -91,20 +93,22 @@ class World {
 
     run() {
         setInterval(() => {
-            console.log(this.sounds.soundOn);
-            this.checkCollisions();
-            checkProgression(this.character.x, this.level.enemies);
-            if (this.character.isDead()) {
-                this.character.playDeadAnimation();
-                this.prepareGameEnd(this.character.won);
-            }
+            if(!isPaused){
+                this.checkCollisions();
+                this.checkIfChickenIsVisible();
+                checkProgression(this.character.x, this.level.enemies);
+                if (this.character.isDead()) {
+                    this.character.playDeadAnimation();
+                    this.prepareGameEnd(this.character.won);
+                }
+            } 
         }, 100)
     }
 
     throwObject() {
         if (this.character.numberBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 20);
-            this.sounds.playSoundIfAllowed(this.character.throwing_sound);
+            this.sounds.playSoundIfAllowed(this.character.throwing_sound, this.allSounds);
             this.throwableObjects.push(bottle);
             this.level.bottlesOnGround.push(bottle);
             this.character.numberBottles--;
@@ -140,6 +144,7 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isColliding(to) && !enemy.dead && to.isAboveGround()) {
                     enemy.dead = true;
+                    this.sounds.stopSound(enemy.chicken_sound);
                     to.needsGravity = false;
                     this.checkIfBottleOnGround(to);
                     to.splash(this.throwableObjects, index);
@@ -161,7 +166,8 @@ class World {
             if (this.character.isColliding(enemy) && !enemy.dead) {
                 if (this.character.isAboveGround() && this.character.speedY < 0) {
                     enemy.dead = true;
-                    this.sounds.playSoundIfAllowed(enemy.dead_sound);
+                    this.sounds.stopSound(enemy.chicken_sound);
+                    this.sounds.playSoundIfAllowed(enemy.dead_sound, this.allSounds);
                 } else {
                     if (!this.character.isHurt()) {
                         this.character.hit();
@@ -178,14 +184,14 @@ class World {
                 this.level.bottles.splice(index, 1);
                 if (this.character.numberBottles < 10) {
                     this.character.numberBottles++;
-                    this.sounds.playSoundIfAllowed(this.character.collecting_bottle_sound);
+                    this.sounds.playSoundIfAllowed(this.character.collecting_bottle_sound, this.allSounds);
                     this.updateBottleBar();
                 }
             }
         })
     }
 
-    checkBottleOnGroundCollision(){
+    checkBottleOnGroundCollision() {
         this.level.bottlesOnGround.forEach((bottle, index) => {
             if (this.character.isColliding(bottle) && bottle.isCollectable) {
                 collectBottleMobile();
@@ -197,7 +203,7 @@ class World {
         this.level.bottlesOnGround.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.character.numberBottles++;
-                this.sounds.playSoundIfAllowed(this.character.collecting_bottle_sound);
+                this.sounds.playSoundIfAllowed(this.character.collecting_bottle_sound, this.allSounds);
                 this.throwableObjects.splice(index, 1);
                 this.level.bottlesOnGround.splice(index, 1);
                 this.updateBottleBar();
@@ -207,17 +213,17 @@ class World {
 
     checkIfBottleOnGround(to) {
         this.level.bottlesOnGround.forEach((bottleOnGround, index) => {
-            if (bottleOnGround == to){
+            if (bottleOnGround == to) {
                 this.level.bottlesOnGround.splice(index, 1);
             }
-});
+        });
     }
 
     checkCoinCollision() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.numberCoins++;
-                this.sounds.playSoundIfAllowed(this.character.collecting_sound);
+                this.sounds.playSoundIfAllowed(this.character.collecting_sound, this.allSounds);
                 this.level.coins.splice(index, 1);
                 this.highscore.plusScore();
             }
@@ -233,6 +239,16 @@ class World {
                 this.healthBar.setPercentage(this.character.energy);
             }
         })
+    }
+
+    checkIfChickenIsVisible() {
+        this.level.enemies.forEach(enemy => {
+            if (!enemy.dead && enemy.x < (this.character.x + 600) && enemy.x > (this.character.x - enemy.width - 120)){
+                this.sounds.playSoundIfAllowed(enemy.chicken_sound, this.allSounds);
+            } else {
+                this.sounds.stopSound(enemy.chicken_sound);
+            }
+       });
     }
 
     updateBottleBar() {
@@ -295,6 +311,12 @@ class World {
         }, 1000);
     }
 
+    stopAllSounds(){
+        this.allSounds.forEach(sound => {
+            sound.pause();
+        });
+    }
+
     getFinalScore(won) {
         return this.highscore.calculateTotalScore(this.character.energy, won);
     }
@@ -324,5 +346,5 @@ class World {
         });
     }
 
-   
+
 }

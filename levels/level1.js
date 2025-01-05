@@ -5,8 +5,8 @@ let gameHasStarted = false;
 function initLevel() {
     level1 = new Level(
         [
-            //new Chicken(enemyStartPosition(600), 370, 0.25, 60),
-            //new Chicken(enemyStartPosition(600), 370, 0.25, 60),
+            new Chicken(enemyStartPosition(600), 370, 0.25, 60),
+            new Chicken(enemyStartPosition(600), 370, 0.25, 60),
             //new Chicken(enemyStartPosition(600), 370, 0.25, 60),
             //new Chicken(enemyStartPosition(600), 370, 0.25, 60),
 
@@ -135,7 +135,7 @@ function spawnTurbochickens(enemiesArr){
         //new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
         //new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
         //new Turbochicken(enemyStartPosition(2800), 320, 120, true),
-        new Turbochicken(enemyStartPosition(1600), 320, 120, false), 
+        //new Turbochicken(enemyStartPosition(1600), 320, 120, false), 
         //new Turbochicken(enemyStartPosition(1600), 320, 120, false), 
         //new Turbochicken(enemyStartPosition(1600), 320, 120, false)
     ];

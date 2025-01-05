@@ -10,7 +10,8 @@ class Chicken extends MovableObject {
     ];
     IMAGE_DEAD = "img/3_enemies_chicken/chicken_small/2_dead/dead.png";
     dead_sound = new Audio('audio/chicken_die.mp3');
-
+    chicken_sound = new Audio();
+    chicken_sound_arr = ["audio/chicken1.mp3", "audio/chicken2.mp3"]
 
     constructor(x, y, speedFactor, height) {
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
@@ -21,6 +22,9 @@ class Chicken extends MovableObject {
         this.speed = 0.3 + Math.random() * speedFactor;
         this.height = height;
         this.width = height; //Damit alle Hühner unterschiedlich schnell laufen, wird der speed randomisiert
+        this.chicken_sound.src = this.randomizeAudioSource();
+        this.chicken_sound.volume = 0.7;
+        this.dead_sound.volume = 0.6;
         this.animate();
     }
 
@@ -41,5 +45,11 @@ class Chicken extends MovableObject {
         }, 150);
 
     }
+    
+    randomizeAudioSource() {
+        let randomIndex = Math.floor(Math.random() * this.chicken_sound_arr.length);
+        return this.chicken_sound_arr[randomIndex];
+      }
+
 
 }

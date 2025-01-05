@@ -128,7 +128,7 @@ class Character extends MovableObject {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
-            this.sounds.playSoundIfAllowed(this.walking_sound);
+            this.sounds.playSoundIfAllowed(this.walking_sound, this.world.allSounds);
             this.inactiveTime = 0;
         }
     }
@@ -137,7 +137,7 @@ class Character extends MovableObject {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             this.otherDirection = true;
-            this.sounds.playSoundIfAllowed(this.walking_sound);
+            this.sounds.playSoundIfAllowed(this.walking_sound, this.world.allSounds);
             this.inactiveTime = 0;
         }
     }
@@ -145,7 +145,7 @@ class Character extends MovableObject {
     checkIfJumping() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
-            this.sounds.playSoundIfAllowed(this.jumping_sound);
+            this.sounds.playSoundIfAllowed(this.jumping_sound, this.world.allSounds);
             this.inactiveTime = 0;
         }
     }
@@ -171,7 +171,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-                this.sounds.playSoundIfAllowed(this.hurting_sound);
+                this.sounds.playSoundIfAllowed(this.hurting_sound, this.world.allSounds);
             }
         }, 100);
     }

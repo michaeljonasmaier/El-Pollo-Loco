@@ -8,6 +8,7 @@ let pauseScreen;
 let sounds = new Sounds();
 let soundOn = true;
 
+
 let leftArrow = document.getElementById("arrow_left");
 let rightArrow = document.getElementById("arrow_right");
 let jump = document.getElementById("arrow_up");
@@ -19,14 +20,21 @@ function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     pauseScreen = document.getElementById("pausescreen");
+    startBackgroundMusic();
     gameLoop();
+}
+
+function startBackgroundMusic(){
+    sounds.playSoundIfAllowed(world.backgroundMusic, world.allSounds);
 }
 
 function gameLoop() {
     if (!isPaused) {
         world.draw();
+        playBackgroundMusic();
     } else {
         pauseScreen.showModal();
+        pauseSounds();
     }
     animationFrame = requestAnimationFrame(gameLoop);
 }
@@ -46,6 +54,21 @@ function playFinalMusic(won) {
 function backToGame() {
     pauseScreen.close();
     isPaused = false;
+}
+
+function pauseSounds() {
+    if (world.allSounds.length > 0) {
+        world.allSounds.forEach(sound => {
+            sound.pause();
+        });
+        world.allSounds = [];
+    }
+}
+
+function playBackgroundMusic(){
+    if(!sounds.isPlaying(world.backgroundMusic)){
+        sounds.playSoundIfAllowed(world.backgroundMusic, world.allSounds);
+    }
 }
 
 function showMenu() {
@@ -72,6 +95,7 @@ function toggleSound(playSound) {
         soundIconMute.classList.add("d-none");
     } else {
         soundOn = false;
+        world.stopAllSounds();
         soundIcon.classList.add("d-none");
         soundIconMute.classList.remove("d-none");
     }
