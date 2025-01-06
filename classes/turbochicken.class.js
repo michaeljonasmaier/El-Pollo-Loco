@@ -16,10 +16,10 @@ class Turbochicken extends Chicken {
         this.speed = 0.6 + Math.random()*4;
         this.height = height;
         this.width = height; 
-        this.checkChickenDirection();
+        this.checkChickenDirection(left);
     }
 
-    checkChickenDirection(){
+    checkChickenDirection(left){
         if(left){
             this.runLeft();
         } else {
