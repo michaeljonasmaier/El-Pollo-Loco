@@ -1,15 +1,14 @@
-const chickenCanvas = document.getElementById('chickenCanvas');
-const chickenCtx = chickenCanvas.getContext('2d');
+let chickenCanvas = document.getElementById('chickenCanvas');
+let chickenCtx = chickenCanvas.getContext('2d');
 
 let chickenImages = [
     "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
     "img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
     "img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
 ];
+
 let currentChickenImage = 0;
-
 let chickenX = cloudCanvas.width;
-
 let loadedImages = chickenImages.map(src => {
     let img = new Image();
     img.src = src;
@@ -20,8 +19,7 @@ Promise.all(loadedImages.map(img => new Promise(resolve => img.onload = resolve)
     setInterval(() => {
         chickenCtx.clearRect(0, 0, chickenCanvas.width, chickenCanvas.height);
         drawChicken();
-        currentChickenImage++;
-       
+        currentChickenImage++;   
     }, 100);
 });
 

@@ -1,7 +1,5 @@
 checkWindowHeight();
 checkWindowWidth();
-
-
 window.addEventListener('resize', checkWindowWidth);
 window.addEventListener('resize', checkWindowHeight);
 

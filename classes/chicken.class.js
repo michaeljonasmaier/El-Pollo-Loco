@@ -21,7 +21,7 @@ class Chicken extends MovableObject {
         this.y = y;
         this.speed = 0.3 + Math.random() * speedFactor;
         this.height = height;
-        this.width = height; //Damit alle Hühner unterschiedlich schnell laufen, wird der speed randomisiert
+        this.width = height;
         this.chicken_sound.src = this.randomizeAudioSource();
         this.chicken_sound.volume = 0.7;
         this.dead_sound.volume = 0.6;
@@ -29,13 +29,19 @@ class Chicken extends MovableObject {
     }
 
     animate() {
+        this.handleMove();
+        this.handleDeath()
+    }
 
+    handleMove(){
         setInterval(() => {
             if (!this.dead && !isPaused && !(this instanceof Turbochicken)) {
                 this.moveLeft();
             }
         }, 1000 / 60);
+    }
 
+    handleDeath() {
         setInterval(() => {
             if (this.dead) {
                 this.img.src = this.IMAGE_DEAD;
@@ -43,13 +49,12 @@ class Chicken extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, 150);
-
     }
-    
+
     randomizeAudioSource() {
         let randomIndex = Math.floor(Math.random() * this.chicken_sound_arr.length);
         return this.chicken_sound_arr[randomIndex];
-      }
+    }
 
 
 }

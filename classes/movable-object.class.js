@@ -70,7 +70,7 @@ class MovableObject extends DrawableObject {
     isColliding(mo) {
         return (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) &&
             (this.y + this.height) >= mo.y &&
-            (this.y) <= (mo.y + mo.height); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+            (this.y) <= (mo.y + mo.height); 
     }
 
     hit() {
@@ -89,8 +89,8 @@ class MovableObject extends DrawableObject {
     }
 
     isHurt() {
-        let timePassed = new Date().getTime() - this.lastHit; //Differenz in Millisekunden
-        timePassed = timePassed / 1000 //Differenz in Skunden
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 1000 
         if (timePassed < 1) {
             return true;
         }

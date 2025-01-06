@@ -7,8 +7,6 @@ let isPaused = false;
 let pauseScreen;
 let sounds = new Sounds();
 let soundOn = true;
-
-
 let leftArrow = document.getElementById("arrow_left");
 let rightArrow = document.getElementById("arrow_right");
 let jump = document.getElementById("arrow_up");
@@ -98,6 +96,16 @@ function toggleSound(playSound) {
         world.stopAllSounds();
         soundIcon.classList.add("d-none");
         soundIconMute.classList.remove("d-none");
+    }
+}
+
+function collectBottleMobile() {
+    if (isTouch()) {
+        letterB.style.display = "block";
+        letterB.addEventListener('touchstart', function () {
+            keyboard.B = true;
+            world.collectBottleOnGround();
+        });
     }
 }
 
@@ -211,13 +219,5 @@ letterB.addEventListener('touchend', function () {
     letterB.style.display = "none";
 });
 
-function collectBottleMobile() {
-    if (isTouch()) {
-        letterB.style.display = "block";
-        letterB.addEventListener('touchstart', function () {
-            keyboard.B = true;
-            world.collectBottleOnGround();
-        });
-    }
-}
+
 

@@ -76,9 +76,7 @@ class Endboss extends MovableObject {
             } else if (this.animationStyle == "dead"){
                 this.playAnimation(this.IMAGES_DEAD);
                 this.applyGravity(); 
-            }
-           
+            } 
         }, 150);
     }
-
 }

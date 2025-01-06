@@ -107,7 +107,6 @@ class Character extends MovableObject {
 
     stopAllCharacterSounds(){
         this.sounds.stopSound(this.walking_sound);
-        //this.jumping_sound.pause();
     }
 
     checkIfMoving() {
@@ -196,5 +195,4 @@ class Character extends MovableObject {
             }
         }, 150);
     }
-
 }

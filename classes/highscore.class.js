@@ -8,7 +8,6 @@ class Highscore{
         this.getFromLocalStorage();
     }
 
-
     plusScore(){
         this.score++;
     }
@@ -32,7 +31,6 @@ class Highscore{
 
     getFromLocalStorage() {
         let bestScoresArr = JSON.parse(localStorage.getItem("bestScores"));
-    
         if (bestScoresArr != null) {
             this.bestScores = bestScoresArr;
         }

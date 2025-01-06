@@ -74,9 +74,7 @@ class World {
         if (mo.otherDirection) {
             mo.flipImage(this.ctx);
         }
-        mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
-
+        mo.draw(this.ctx); //mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             mo.flipImageBack(this.ctx);
         }
@@ -86,9 +84,7 @@ class World {
         if (mo.otherDirection) {
             mo.flipImage(this.ctx);
         }
-        mo.drawCharacter(this.ctx);
-        mo.drawFrame(this.ctx);
-
+        mo.drawCharacter(this.ctx); //mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             mo.flipImageBack(this.ctx);
         }
@@ -127,7 +123,6 @@ class World {
         this.checkCactusCollision();
         this.checkThrowableObjectCollision();
         this.checkBottleOnGroundCollision();
-
         if (this.character.isColliding(this.level.endboss)) {
             this.character.hit();
             this.healthBar.setPercentage(this.character.energy);
@@ -145,16 +140,20 @@ class World {
                     this.sounds.playSoundIfAllowed(this.level.endboss.enboss_angry_sound, this.allSounds);
                 }
             }
-            this.level.enemies.forEach((enemy) => {
-                if (enemy.isColliding(to) && !enemy.dead && to.isAboveGround()) {
-                    enemy.dead = true;
-                    this.sounds.stopSound(enemy.chicken_sound);
-                    to.needsGravity = false;
-                    this.checkIfBottleOnGround(to);
-                    to.splash(this.throwableObjects, index);
-                }
-            });
+            this.checkThrowableObjectCollisionOnEnemy(to, index);
         })
+    }
+
+    checkThrowableObjectCollisionOnEnemy(to, index){
+        this.level.enemies.forEach((enemy) => {
+            if (enemy.isColliding(to) && !enemy.dead && to.isAboveGround()) {
+                enemy.dead = true;
+                this.sounds.stopSound(enemy.chicken_sound);
+                to.needsGravity = false;
+                this.checkIfBottleOnGround(to);
+                to.splash(this.throwableObjects, index);
+            }
+        });
     }
 
     checkEndbossEnergy() {
@@ -236,7 +235,7 @@ class World {
 
     checkCactusCollision() {
         this.level.cactuses.forEach((cactus, index) => {
-            if (this.character.isColliding(cactus)) { // && !cactus.damageDone
+            if (this.character.isColliding(cactus) && !cactus.damageDone) {
                 this.character.hit();
                 cactus.damageDone = true;
                 this.level.cactuses[index].applyGravity();
@@ -287,16 +286,13 @@ class World {
         let text = this.highscore.score;
         let textWidth = this.ctx.measureText(text).width;
         let textHeight = 30;
-
         this.ctx.fillStyle = 'white';
         this.ctx.fillRect(this.canvas.width - 95, 27, textWidth + 50, textHeight);
         this.ctx.fillStyle = '#6f86d6';
         this.ctx.fillText(text, this.canvas.width - 50, 50);
-
         let img = new Image();
         img.src = 'img/8_coin/coin_1.png';
         this.ctx.drawImage(img, this.canvas.width - 90, 27, 25, 25);
-
     }
 
     displayTime() {
@@ -327,8 +323,7 @@ class World {
 
     prepareGameEnd(won) {
         let counter = 0;
-        this.gameover = true;
-        
+        this.gameover = true;    
         let outro = setInterval(() => {
             if (counter == 1) {
                 this.createHighscore(won)

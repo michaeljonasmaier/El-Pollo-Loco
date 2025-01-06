@@ -84,7 +84,6 @@ function checkOverlapping(oldPosition, attempts = 0) {
     let newPosition = oldPosition;
     for (let position of collectableObjectsPositions) {
         let distance = Math.abs(newPosition - position);
-
         if (distance < 55) {
             if (attempts >= maxAttempts) {
                 return newPosition;
@@ -131,13 +130,13 @@ function spawnEnemies(enemiesArr, factor, speedFactor) {
 
 function spawnTurbochickens(enemiesArr){
     let newEnemies = [
-        //new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
-        //new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
-        //new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
-        //new Turbochicken(enemyStartPosition(2800), 320, 120, true),
-        //new Turbochicken(enemyStartPosition(1600), 320, 120, false), 
-        //new Turbochicken(enemyStartPosition(1600), 320, 120, false), 
-        //new Turbochicken(enemyStartPosition(1600), 320, 120, false)
+        new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
+        new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
+        new Turbochicken(enemyStartPosition(2800), 320, 120, true), 
+        new Turbochicken(enemyStartPosition(2800), 320, 120, true),
+        new Turbochicken(enemyStartPosition(1600), 320, 120, false), 
+        new Turbochicken(enemyStartPosition(1600), 320, 120, false), 
+        new Turbochicken(enemyStartPosition(1600), 320, 120, false)
     ];
     newEnemies.forEach(enemy => {
         enemiesArr.push(enemy);

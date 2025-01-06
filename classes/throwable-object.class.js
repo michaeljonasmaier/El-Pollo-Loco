@@ -39,7 +39,6 @@ class ThrowableObject extends MovableObject {
         this.bottle_splash_sound.volume = 0.3;
         this.applyGravity();
         this.throw();
-
         this.animate();
     }
 
@@ -82,8 +81,7 @@ class ThrowableObject extends MovableObject {
             } else {
                 toArr.splice(index, 1)
                 clearInterval(splashIntervall)
-            }
-            
+            }        
         }, 100);
     }
 }
