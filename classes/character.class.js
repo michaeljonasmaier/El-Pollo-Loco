@@ -95,8 +95,9 @@ class Character extends MovableObject {
         this.applyGravity();
     }
 
-
-
+    /**
+     * Starts all animation and check functions
+     */
     animate() {
         this.checkIfMoving();
         this.playJumpingAnimation();
@@ -105,10 +106,16 @@ class Character extends MovableObject {
         this.playIdleAnimation();
     }
 
+    /**
+     * stops all sounds from character
+     */
     stopAllCharacterSounds(){
         this.sounds.stopSound(this.walking_sound);
     }
 
+    /**
+     * Checks 60 times a second, stops sounds, checks moving, jumping. If character doesnt do anything, it sets inactive to 0
+     */
     checkIfMoving() {
         setInterval(() => {
             if (!isPaused) {
@@ -123,6 +130,9 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * checks if moving right on keyboard press, plays sound and sets inactive time
+     */
     checkIfMovingRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
@@ -132,6 +142,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * checks if moving left on keyboard press, plays sound and sets inactive time
+     */
     checkIfMovingLeft() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
@@ -141,6 +154,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * checks if jumping right on keyboard press, plays sound and sets inactive time
+     */
     checkIfJumping() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
@@ -149,6 +165,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * plays jumping animation
+     */
     playJumpingAnimation() {
         setInterval(() => {
             if (this.isAboveGround() && !this.isDead()) {
@@ -157,6 +176,9 @@ class Character extends MovableObject {
         }, 100);
     }
 
+    /**
+     * plays dead animation, makes character fall off the canvas
+     */
     playDeadAnimation() {
         this.needsGravity = false;
         this.currentImage = 0;
@@ -167,6 +189,9 @@ class Character extends MovableObject {
             }, 100);
     }
 
+    /**
+     * plays hurt animation
+     */
     playHurtAnimation() {
         setInterval(() => {
             if (this.isHurt()) {
@@ -176,6 +201,9 @@ class Character extends MovableObject {
         }, 100);
     }
 
+    /**
+     * plays walk animation
+     */
     playWalkAnimation() {
         setInterval(() => {
             if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {
@@ -184,6 +212,9 @@ class Character extends MovableObject {
         }, 50);
     }
 
+    /**
+     * plays idle animation if not moving, switches to long idle if inactive time reaches a specific time
+     */
     playIdleAnimation() {
         setInterval(() => {
             if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {

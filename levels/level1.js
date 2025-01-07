@@ -7,8 +7,8 @@ function initLevel() {
         [
             new Chicken(enemyStartPosition(600), 370, 0.25, 60),
             new Chicken(enemyStartPosition(600), 370, 0.25, 60),
-            //new Chicken(enemyStartPosition(600), 370, 0.25, 60),
-            //new Chicken(enemyStartPosition(600), 370, 0.25, 60),
+            new Chicken(enemyStartPosition(600), 370, 0.25, 60),
+            new Chicken(enemyStartPosition(600), 370, 0.25, 60),
 
         ],
         new Endboss(),
@@ -72,6 +72,10 @@ function initLevel() {
     gameHasStarted = true;
 }
 
+/**
+ * sets random x position
+ * @returns random x position
+ */
 function setXPosition() {
     let xPosition = 400 + Math.random() * 2000;
     xPosition = checkOverlapping(xPosition);
@@ -79,6 +83,12 @@ function setXPosition() {
     return xPosition;
 }
 
+/**
+ * checks if objects are overlapping, tries to reposition it for 200 times
+ * @param {float} oldPosition - old position of object
+ * @param {integer} attempts - attempts of repositioning it 
+ * @returns the new position
+ */
 function checkOverlapping(oldPosition, attempts = 0) {
     const maxAttempts = 200;
     let newPosition = oldPosition;
@@ -95,6 +105,10 @@ function checkOverlapping(oldPosition, attempts = 0) {
     return newPosition;
 }
 
+/**
+ * randomizes the y position (3 options)
+ * @returns the yPositiom
+ */
 function setYPosition() {
     let yPosition = Math.random();
     if (yPosition > 0 && yPosition < 0.33) {
@@ -106,16 +120,32 @@ function setYPosition() {
     }
 }
 
+/**
+ * randomizes x position
+ * @param {integer} factor - startposition factor
+ * @returns x position
+ */
 function enemyStartPosition(factor) {
     return factor + Math.random() * 500;
 }
 
+/**
+ * checks the progression of x of the character
+ * @param {integer} characterPosition - current position if character
+ * @param {object array} enemiesArr - array of all enemies
+ */
 function checkProgression(characterPosition, enemiesArr) {
     if (characterPosition > 900 && enemiesArr.length < 5) {
         spawnEnemies(enemiesArr, 1500, 0.8);
     }
 }
 
+/**
+ * spawns new enemies on random positions and pushes them to array
+ * @param {object array} enemiesArr - array of all enemies
+ * @param {*} factor - startposition factor
+ * @param {*} speedFactor - speed factor
+ */
 function spawnEnemies(enemiesArr, factor, speedFactor) {
     let newEnemies = [
         new Chicken(enemyStartPosition(factor), 320, speedFactor, 120), 
@@ -128,6 +158,10 @@ function spawnEnemies(enemiesArr, factor, speedFactor) {
     });
 }
 
+/**
+ * spawns new turbochickens
+ * @param {object array} enemiesArr - array of all enemies
+ */
 function spawnTurbochickens(enemiesArr){
     let newEnemies = [
         new Turbochicken(enemyStartPosition(2800), 320, 120, true), 

@@ -1,3 +1,6 @@
+/**
+ * hides all dialogs and menus, sets touch controls and starts init function
+ */
 function startGame(){
     let startDialog = document.getElementById("startscreen");
     let endDialog = document.getElementById("endscreen");

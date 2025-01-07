@@ -19,6 +19,10 @@ class Turbochicken extends Chicken {
         this.checkChickenDirection(left);
     }
 
+    /**
+     * checks, if chicken should move left or right
+     * @param {boolean} left - shoult the chicken move left 
+     */
     checkChickenDirection(left){
         if(left){
             this.runLeft();
@@ -28,15 +32,20 @@ class Turbochicken extends Chicken {
         }
     }
 
+    /**
+     * makes the chicken move left
+     */
     runLeft(){
         setInterval(() => {
             if (!this.dead && !isPaused) {
-                console.log("sdfsd")
                 this.moveLeft();
             }
         }, 50);
     }
 
+    /**
+     * makes the chicken move right
+     */
     runRight(){
         setInterval(() => {
             if (!this.dead && !isPaused) {

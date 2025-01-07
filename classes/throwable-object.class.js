@@ -42,6 +42,9 @@ class ThrowableObject extends MovableObject {
         this.animate();
     }
 
+    /**
+     * handles animation if object is above ground or not, changes img
+     */
     animate() {
         setInterval(() => {
             if (!this.isAboveGround()) {
@@ -57,6 +60,9 @@ class ThrowableObject extends MovableObject {
         }, 50)
     }
 
+    /**
+     * plays sound if it hasnt already
+     */
     playBottleSound(){
         if(!this.soundPlayed){
             this.sounds.playSoundIfAllowed(this.bottle_ground_sound, []);
@@ -64,14 +70,25 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * throws the object over distance
+     */
     throw() {
         this.x += this.distance;
     }
 
+    /**
+     * plays animation
+     */
     playFlyAnimation() {
         this.playAnimation(this.IMAGES_FLYING);
     }
 
+    /**
+     * changes the animation to splash animation and splice it of array afterwards
+     * @param {ThrowableObject} toArr - Array of all throwable objects in world
+     * @param {*} index index of throwable objects in world
+     */
     splash(toArr, index) {
         this.currentImage = 0;
         this.sounds.playSoundIfAllowed(this.bottle_splash_sound, []);

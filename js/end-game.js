@@ -1,3 +1,9 @@
+/**
+ * displays the endscreen, hides controls and clears intervals
+ * @param {integer} score - characters score
+ * @param {boolean} won - true or false if character won
+ * @param {Array} bestScores - highscore list, sorted scores
+ */
 function showEndscreen(score, won, bestScores) {
     let dialog = document.getElementById("endscreen");
     hideTouchControl();
@@ -6,6 +12,13 @@ function showEndscreen(score, won, bestScores) {
     dialog.style.display = "block";
 }
 
+/**
+ * creates template from won 
+ * @param {integer} score - characters score
+ * @param {boolean} won - true or false if character won
+ * @param {Array} bestScores - highscore list, sorted scores
+ * @returns HTML template
+ */
 function getEndscreenTemplate(score, won, bestScores) {
     if (won) {
         return /*html*/`
@@ -36,6 +49,11 @@ function getEndscreenTemplate(score, won, bestScores) {
     }
 }
 
+/**
+ * creates the HTML template of the 3 best scores
+ * @param {Array} bestScores - highscore list, sorted scores
+ * @returns the div container with the 3 best scores
+ */
 function getHighscoreList(bestScores) {
     let container = "<b>Highscores:</b><br>";
     for (let i = 1; i < 4; i++) {

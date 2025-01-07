@@ -28,11 +28,17 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
+    /**
+     * starts animating
+     */
     animate() {
         this.handleMove();
         this.handleDeath()
     }
 
+    /**
+     * checks if dead or paused, otherwise moveleft
+     */
     handleMove(){
         setInterval(() => {
             if (!this.dead && !isPaused && !(this instanceof Turbochicken)) {
@@ -41,6 +47,9 @@ class Chicken extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * checks if chicken is dead, plays animation an changes to dead img
+     */
     handleDeath() {
         setInterval(() => {
             if (this.dead) {
@@ -51,6 +60,9 @@ class Chicken extends MovableObject {
         }, 150);
     }
 
+    /**
+     * randomizes the chicken audio source from array
+     */
     randomizeAudioSource() {
         let randomIndex = Math.floor(Math.random() * this.chicken_sound_arr.length);
         return this.chicken_sound_arr[randomIndex];

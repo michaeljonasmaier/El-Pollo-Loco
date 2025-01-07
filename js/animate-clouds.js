@@ -7,6 +7,9 @@ cloudImage.src = 'img/5_background/layers/4_clouds/1.png';
 let cloudX = cloudCanvas.width;
 let counter = 0;
 
+/**
+ * animates clouds after loading the image
+ */
 cloudImage.onload = () => {
     setInterval(() => {
         cloudCtx.clearRect(0, 0, cloudCanvas.width, cloudCanvas.height);
@@ -18,10 +21,3 @@ cloudImage.onload = () => {
     }, 20);
 };
 
-function drawChicken(){ 
-        let chickenImage = new Image();
-        let i = currentChickenImage % chickenImages.length; 
-        chickenImage.src = chickenImages[i];
-        cloudCtx.drawImage(chickenImage, chickenX, 350, 80, 40);
-        chickenX -= 0.8;   
-}

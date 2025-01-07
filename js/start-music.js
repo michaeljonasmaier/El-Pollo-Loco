@@ -1,3 +1,0 @@
-function startBackgroundMusicX(){
-    backgroundMusic.play();
-}

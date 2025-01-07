@@ -14,12 +14,20 @@ class StatusBar extends DrawableObject {
         this.setPercentage(percentage);
     }
 
+    /**
+     * sets the img of the status bar depending on percentage
+     * @param {integer} percentage - status of bar
+     */
     setPercentage(percentage) {
         this.percentage = percentage; //=> 0...5
         let imagePath = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
     }
 
+    /**
+     * combines percentage and status image
+     * @returns number between 0 and 5 (image src)
+     */
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 5;
@@ -36,6 +44,11 @@ class StatusBar extends DrawableObject {
         }
     }
 
+    /**
+     * get image paths of different bars
+     * @param {integer} typeIndex - which bar
+     * @param {integer} type - which type
+     */
     getImagePaths(typeIndex, type) {
         this.IMAGES = [
             `img/7_statusbars/1_statusbar/${typeIndex}_statusbar_${type}/blue/0.png`,

@@ -9,12 +9,19 @@ let chickenImages = [
 
 let currentChickenImage = 0;
 let chickenX = cloudCanvas.width;
+
+/**
+ * loads the chicken images
+ */
 let loadedImages = chickenImages.map(src => {
     let img = new Image();
     img.src = src;
     return img;
 });
 
+/**
+ * animates the chicken after loading it
+ */
 Promise.all(loadedImages.map(img => new Promise(resolve => img.onload = resolve))).then(() => {
     setInterval(() => {
         chickenCtx.clearRect(0, 0, chickenCanvas.width, chickenCanvas.height);
@@ -23,6 +30,9 @@ Promise.all(loadedImages.map(img => new Promise(resolve => img.onload = resolve)
     }, 100);
 });
 
+/**
+ * draws chicken image
+ */
 function drawChicken() {
     let i = currentChickenImage % loadedImages.length;
     chickenCtx.drawImage(loadedImages[i], chickenX, 350, 100, 100);

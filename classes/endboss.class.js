@@ -61,6 +61,9 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * handles the endboss animations, plays them
+     */
     animate() {
         setInterval(() => {
             if(this.animationStyle == "alert"){

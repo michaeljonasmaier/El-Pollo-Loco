@@ -13,6 +13,9 @@ let jump = document.getElementById("arrow_up");
 let bottle = document.getElementById("bottle");
 let letterB = document.getElementById("letter_b");
 
+/**
+ * creates world, starts gameLoop and music
+ */
 function init() {
     initLevel();
     canvas = document.getElementById("canvas");
@@ -22,10 +25,16 @@ function init() {
     gameLoop();
 }
 
+/**
+ * starts background music
+ */
 function startBackgroundMusic(){
     sounds.playSoundIfAllowed(world.backgroundMusic, world.allSounds);
 }
 
+/**
+ * checks if paused
+ */
 function gameLoop() {
     if (!isPaused) {
         world.draw();
@@ -37,10 +46,20 @@ function gameLoop() {
     animationFrame = requestAnimationFrame(gameLoop);
 }
 
+/**
+ * navigates to endscreen
+ * @param {integer} score - characters score
+ * @param {boolean} won - true or false if character won
+ * @param {Array} bestScores - highscore list, sorted scores
+ */
 function gameEnd(score, won, bestScores) {
     showEndscreen(score, won, bestScores);
 }
 
+/**
+ * plays music depending if character won
+ * @param {boolean} won - true or false if character won
+ */
 function playFinalMusic(won) {
     if (won) {
         sounds.playSoundIfAllowed(sounds.win_sound, world.allSounds);
@@ -49,11 +68,17 @@ function playFinalMusic(won) {
     }
 }
 
+/**
+ * closes pause screen
+ */
 function backToGame() {
     pauseScreen.close();
     isPaused = false;
 }
 
+/**
+ * pauses all sounds
+ */
 function pauseSounds() {
     if (world.allSounds.length > 0) {
         world.allSounds.forEach(sound => {
@@ -63,12 +88,18 @@ function pauseSounds() {
     }
 }
 
+/**
+ * restarts background music after pausing
+ */
 function playBackgroundMusic(){
     if(!sounds.isPlaying(world.backgroundMusic) && !world.gameover){
         sounds.playSoundIfAllowed(world.backgroundMusic, world.allSounds);
     }
 }
 
+/**
+ * displays the start menu
+ */
 function showMenu() {
     let endDialog = document.getElementById("endscreen");
     endDialog.style.display = "none";
@@ -78,12 +109,19 @@ function showMenu() {
     startDialog.style.display = "block";
 }
 
+/**
+ * clears all intervals in window
+ */
 function clearAllIntervals() {
     for (let i = 0; i < 9999; i++) {
         window.clearInterval(i);
     }
 }
 
+/**
+ * checks if mute button clicked
+ * @param {boolean} playSound - true if sound should be played
+ */
 function toggleSound(playSound) {
     let soundIcon = document.getElementById("sound_icon");
     let soundIconMute = document.getElementById("sound_icon_mute");
@@ -99,6 +137,9 @@ function toggleSound(playSound) {
     }
 }
 
+/**
+ * handles bottle collection on mobile. You only can collect it if your next to the bottle
+ */
 function collectBottleMobile() {
     if (isTouch()) {
         letterB.style.display = "block";
@@ -109,6 +150,9 @@ function collectBottleMobile() {
     }
 }
 
+/**
+ * handles Keydowns 
+ */
 window.addEventListener('keydown', (event) => {
     if (event.key == "ArrowRight") {
         keyboard.RIGHT = true;
@@ -149,6 +193,9 @@ window.addEventListener('keydown', (event) => {
     }
 })
 
+/**
+ * handles keyups
+ */
 window.addEventListener('keyup', (event) => {
     if (event.key == "ArrowRight") {
         keyboard.RIGHT = false;
@@ -179,6 +226,9 @@ window.addEventListener('keyup', (event) => {
     }
 })
 
+/**
+ * handles touch events
+ */
 leftArrow.addEventListener('touchstart', function () {
     keyboard.LEFT = true;
 });

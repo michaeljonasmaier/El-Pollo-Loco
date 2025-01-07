@@ -3,6 +3,9 @@ checkWindowWidth();
 window.addEventListener('resize', checkWindowWidth);
 window.addEventListener('resize', checkWindowHeight);
 
+/**
+ * checks if window is below certain size and shows turn device message if needed
+ */
 function checkWindowWidth() {
   if (window.innerWidth < 570) {
     document.getElementById("turn_device").showModal();
@@ -13,6 +16,9 @@ function checkWindowWidth() {
   }
 }
 
+/**
+ * checks if window is below certain height and hides control information
+ */
 function checkWindowHeight() {
   if (window.innerHeight < 555) {
     document.getElementById("control_div").classList.add("d-none");

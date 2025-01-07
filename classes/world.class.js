@@ -1,8 +1,6 @@
 class World {
-
     character = new Character();
     level = level1;
-
     canvas;
     ctx;
     keyboard;
@@ -31,17 +29,20 @@ class World {
         this.run();
     }
 
-
+    /**
+     * sets characters world
+     */
     setWorld() {
         this.character.world = this;
     }
 
+    /**
+     * adds all objects to canvas
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.heigth);
-
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-
         this.addCharacterToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.level.endboss);
@@ -64,12 +65,20 @@ class World {
         //draw gets called in game.js
     }
 
+    /**
+     * draws array
+     * @param {object array} objects 
+     */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         });
     }
 
+    /**
+     * draws movable objects and flips image if needed
+     * @param {MovableObject} mo 
+     */
     addToMap(mo) {
         if (mo.otherDirection) {
             mo.flipImage(this.ctx);
@@ -80,6 +89,10 @@ class World {
         }
     }
 
+    /**
+     * draws character 
+     * @param {MovableObject} mo 
+     */
     addCharacterToMap(mo) {
         if (mo.otherDirection) {
             mo.flipImage(this.ctx);
@@ -90,6 +103,9 @@ class World {
         }
     }
 
+    /**
+     * checks collisions, visibility of objects and the game status 
+     */
     run() {
         setInterval(() => {
             if(!isPaused){
@@ -104,6 +120,9 @@ class World {
         }, 100)
     }
 
+    /**
+     * creates a throwable object 
+     */
     throwObject() {
         if (this.character.numberBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 20);
@@ -116,6 +135,9 @@ class World {
         }
     }
 
+    /**
+     * checks all kinds of collisions
+     */
     checkCollisions() {
         this.checkEnemyCollision();
         this.checkBottleCollision();
@@ -129,6 +151,9 @@ class World {
         }
     }
 
+    /**
+     * checks collisions of throwable objects and endboss
+     */
     checkThrowableObjectCollision() {
         this.throwableObjects.forEach((to, index) => {
             if (this.level.endboss.isColliding(to)) {
@@ -144,6 +169,11 @@ class World {
         })
     }
 
+    /**
+     *  checks collisions of throwable objects and enemy
+     * @param {throwObject} to 
+     * @param {integer} index 
+     */
     checkThrowableObjectCollisionOnEnemy(to, index){
         this.level.enemies.forEach((enemy) => {
             if (enemy.isColliding(to) && !enemy.dead && to.isAboveGround()) {
@@ -156,6 +186,9 @@ class World {
         });
     }
 
+    /**
+     * checks if turbochickens need to be spawn
+     */
     checkEndbossEnergy() {
         this.level.endboss.energy--;
         this.updateEndbossAnimation();
@@ -164,6 +197,9 @@ class World {
         }
     }
 
+    /**
+     * checks collision of character with enemies and handles it
+     */
     checkEnemyCollision() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.dead) {
@@ -181,6 +217,9 @@ class World {
         })
     }
 
+    /**
+     * checks if character is collecting a bottle
+     */
     checkBottleCollision() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -194,6 +233,9 @@ class World {
         })
     }
 
+    /**
+     * checks if character is nearby a bottle on the ground
+     */
     checkBottleOnGroundCollision() {
         this.level.bottlesOnGround.forEach((bottle, index) => {
             if (this.character.isColliding(bottle) && bottle.isCollectable) {
@@ -202,6 +244,9 @@ class World {
         })
     }
 
+    /**
+     * handles collection of bottle
+     */
     collectBottleOnGround() {
         this.level.bottlesOnGround.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -214,6 +259,10 @@ class World {
         })
     }
 
+    /**
+     * checks if throwable object hits the ground
+     * @param {throwObject} to 
+     */
     checkIfBottleOnGround(to) {
         this.level.bottlesOnGround.forEach((bottleOnGround, index) => {
             if (bottleOnGround == to) {
@@ -222,6 +271,9 @@ class World {
         });
     }
 
+    /**
+     * checks if character is collecting a coin
+     */
     checkCoinCollision() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -233,6 +285,9 @@ class World {
         })
     }
 
+    /**
+     * checks if character hits a catus
+     */
     checkCactusCollision() {
         this.level.cactuses.forEach((cactus, index) => {
             if (this.character.isColliding(cactus) && !cactus.damageDone) {
@@ -244,6 +299,9 @@ class World {
         })
     }
 
+    /**
+     * checks if chicken is visible an plays sound 
+     */
     checkIfChickenIsVisible() {
         this.level.enemies.forEach(enemy => {
             if (!enemy.dead && enemy.x < (this.character.x + 600) && enemy.x > (this.character.x - enemy.width - 120)){
@@ -254,18 +312,27 @@ class World {
        });
     }
 
+    /**
+     * updates the status of the bottle bar
+     */
     updateBottleBar() {
         if (this.character.numberBottles <= 10) {
             this.bottleBar.setPercentage(this.character.numberBottles * 10);
         }
     }
 
+    /**
+     * updates the status of the coin bar
+     */
     updateCoinBar() {
         if (this.character.numberBottles <= 10) {
             this.coinBar.setPercentage(this.character.numberCoins * 10);
         }
     }
 
+    /**
+     * updates the endboss animation depending of its energy
+     */
     updateEndbossAnimation() {
         if (this.level.endboss.energy == 4) {
             this.level.endboss.animationStyle = "walk";
@@ -282,27 +349,9 @@ class World {
         }
     }
 
-    displayCoinNumber() {
-        let text = this.highscore.score;
-        let textWidth = this.ctx.measureText(text).width;
-        let textHeight = 30;
-        this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(this.canvas.width - 95, 27, textWidth + 50, textHeight);
-        this.ctx.fillStyle = '#6f86d6';
-        this.ctx.fillText(text, this.canvas.width - 50, 50);
-        let img = new Image();
-        img.src = 'img/8_coin/coin_1.png';
-        this.ctx.drawImage(img, this.canvas.width - 90, 27, 25, 25);
-    }
-
-    displayTime() {
-        let textHeight = 30;
-        this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(this.canvas.width - 220, 27, 100, textHeight);
-        this.ctx.fillStyle = '#6f86d6';
-        this.ctx.fillText("Time: " + this.highscore.time, this.canvas.width - 210, 50);
-    }
-
+    /**
+     * creates a timer 
+     */
     startTimer() {
         setInterval(() => {
             if (!isPaused) {
@@ -311,16 +360,28 @@ class World {
         }, 1000);
     }
 
+    /**
+     * stops all sounds 
+     */
     stopAllSounds(){
         this.allSounds.forEach(sound => {
             sound.pause();
         });
     }
 
+    /**
+     * creates the final score
+     * @param {boolean} won 
+     * @returns the final score
+     */
     getFinalScore(won) {
         return this.highscore.calculateTotalScore(this.character.energy, won);
     }
 
+    /**
+     * prepares the end screen, waits a second after game end, plays the music and clears the intervals
+     * @param {boolean} won 
+     */
     prepareGameEnd(won) {
         let counter = 0;
         this.gameover = true;    
@@ -340,16 +401,50 @@ class World {
         }, 1000);
     }
 
+    /**
+     * kills all enemies in canvas
+     */
     killAllEnemies() {
         this.level.enemies.forEach(enemy => {
             enemy.dead = true;
         });
     }
 
+    /**
+     * sets the highscore list
+     * @param {boolean} won 
+     */
     createHighscore(won){
         this.finalScore = this.getFinalScore(won);
         this.bestScoreList = this.highscore.getBestScoreList();
         this.highscore.safeToLocalStorage();
+    }
+
+     /**
+     * displays the coin number in the canvas
+     */
+     displayCoinNumber() {
+        let text = this.highscore.score;
+        let textWidth = this.ctx.measureText(text).width;
+        let textHeight = 30;
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillRect(this.canvas.width - 95, 27, textWidth + 50, textHeight);
+        this.ctx.fillStyle = '#6f86d6';
+        this.ctx.fillText(text, this.canvas.width - 50, 50);
+        let img = new Image();
+        img.src = 'img/8_coin/coin_1.png';
+        this.ctx.drawImage(img, this.canvas.width - 90, 27, 25, 25);
+    }
+
+    /**
+     * displays the time in the canvas
+     */
+    displayTime() {
+        let textHeight = 30;
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillRect(this.canvas.width - 220, 27, 100, textHeight);
+        this.ctx.fillStyle = '#6f86d6';
+        this.ctx.fillText("Time: " + this.highscore.time, this.canvas.width - 210, 50);
     }
 
 }
