@@ -301,6 +301,9 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: rgba(255, 255, 255, 0.621);
+    gap: 3px;
+    font-family: 'Atma';
 }
 
 footer a{
@@ -403,9 +406,10 @@ footer a:hover{
 
     footer{
         height: 25px;
+        font-size: 9px;
     }
 
     footer a{
-        font-size: 10px;
+        font-size: 9px;
     }
 }
