@@ -10,6 +10,8 @@ class Character extends MovableObject {
     isFalling = false;
     inactiveTime = 0;
     animationDone = false;
+    movesBackwards= false;
+    offsetX = 0;
     IMAGES_IDLE = [
         "img/2_character_pepe/1_idle/idle/I-1.png",
         "img/2_character_pepe/1_idle/idle/I-2.png",
@@ -138,6 +140,7 @@ class Character extends MovableObject {
             this.moveRight();
             this.otherDirection = false;
             this.sounds.playSoundIfAllowed(this.walking_sound, this.world.allSounds);
+            this.movesBackwards = false;
             this.inactiveTime = 0;
         }
     }
@@ -150,6 +153,7 @@ class Character extends MovableObject {
             this.moveLeft();
             this.otherDirection = true;
             this.sounds.playSoundIfAllowed(this.walking_sound, this.world.allSounds);
+            this.movesBackwards = true;
             this.inactiveTime = 0;
         }
     }

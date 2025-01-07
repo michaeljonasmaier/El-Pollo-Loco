@@ -304,6 +304,7 @@ footer {
     color: rgba(255, 255, 255, 0.621);
     gap: 3px;
     font-family: 'Atma';
+    text-align: center;
 }
 
 footer a{
@@ -377,6 +378,7 @@ footer a:hover{
     .back-btn{   
         left: 130px;
     }
+
     .cloud-canvas {
         height: 350px;
         width: 525px;
@@ -411,5 +413,71 @@ footer a:hover{
 
     footer a{
         font-size: 9px;
+    }
+}
+
+@media(max-height: 375px){
+    #canvas {
+        height: 300px;
+        width: 495px;
+    }
+
+    .startscreen {
+        height: 300px;
+        width: 495px;
+        top: calc(50% - 160px);
+    }
+
+    .cloud-canvas {
+        height: 300px;
+        width: 495px;
+    }
+
+    .pepe-gif {
+        height: 220px;
+        top: 50px;
+        left: 80px;
+    }
+
+    .title {
+        font-size: 70px;
+        left: 150px;
+    }
+
+    .screen-btn {
+        top: 220px;
+    }
+
+    .mute-div{
+        top: calc(50% - 140px);
+        right: calc(50% - 310px);
+    }
+
+    .won{
+        left: 170px;
+        top: 30px;
+        width: 260px;
+        height: 60px;
+    }
+
+    #score{
+        top: 130px;
+        left: 220px;
+        font-size: 20px;
+    }
+
+    #highscore {
+        top: 110px;
+        left: 320px;
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .back-btn{   
+        left: 180px;
+    }
+
+    .start-btn{
+        left: 320px
     }
 }

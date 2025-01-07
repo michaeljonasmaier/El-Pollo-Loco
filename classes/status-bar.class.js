@@ -2,9 +2,9 @@ class StatusBar extends DrawableObject {
     IMAGES = [];
     percentage = 100;
 
-    constructor(typeIndex, type, x, y, percentage) {
+    constructor(folder, typeIndex, type, x, y, percentage) {
         super();
-        this.getImagePaths(typeIndex, type)
+        this.getImagePaths(folder, typeIndex, type)
         this.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
@@ -49,15 +49,27 @@ class StatusBar extends DrawableObject {
      * @param {integer} typeIndex - which bar
      * @param {integer} type - which type
      */
-    getImagePaths(typeIndex, type) {
-        this.IMAGES = [
-            `img/7_statusbars/1_statusbar/${typeIndex}_statusbar_${type}/blue/0.png`,
-            `img/7_statusbars/1_statusbar/${typeIndex}_statusbar_${type}/blue/20.png`,
-            `img/7_statusbars/1_statusbar/${typeIndex}_statusbar_${type}/blue/40.png`,
-            `img/7_statusbars/1_statusbar/${typeIndex}_statusbar_${type}/blue/60.png`,
-            `img/7_statusbars/1_statusbar/${typeIndex}_statusbar_${type}/blue/80.png`,
-            `img/7_statusbars/1_statusbar/${typeIndex}_statusbar_${type}/blue/100.png`
-        ];
+    getImagePaths(folder, typeIndex, type) {
+        if(folder == "2_statusbar_endboss"){
+            this.IMAGES = [
+                `img/7_statusbars/${folder}/blue/blue0.png`,
+                `img/7_statusbars/${folder}/blue/blue20.png`,
+                `img/7_statusbars/${folder}/blue/blue40.png`,
+                `img/7_statusbars/${folder}/blue/blue60.png`,
+                `img/7_statusbars/${folder}/blue/blue80.png`,
+                `img/7_statusbars/${folder}/blue/blue100.png`
+            ];
+        } else {
+            this.IMAGES = [
+                `img/7_statusbars/${folder}/${typeIndex}_statusbar_${type}/blue/0.png`,
+                `img/7_statusbars/${folder}/${typeIndex}_statusbar_${type}/blue/20.png`,
+                `img/7_statusbars/${folder}/${typeIndex}_statusbar_${type}/blue/40.png`,
+                `img/7_statusbars/${folder}/${typeIndex}_statusbar_${type}/blue/60.png`,
+                `img/7_statusbars/${folder}/${typeIndex}_statusbar_${type}/blue/80.png`,
+                `img/7_statusbars/${folder}/${typeIndex}_statusbar_${type}/blue/100.png`
+            ];
+        }
+        
     }
 
 }

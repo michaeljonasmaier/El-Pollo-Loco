@@ -5,8 +5,9 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    healthBar = new StatusBar(2, "health", 30, 0, 100);
-    bottleBar = new StatusBar(3, "bottle", 30, 50, this.character.numberBottles * 10);
+    healthBar = new StatusBar("1_statusbar", 2, "health", 30, 0, 100);
+    bottleBar = new StatusBar("1_statusbar", 3, "bottle", 30, 50, this.character.numberBottles * 10);
+    endbossBar = new StatusBar("2_statusbar_endboss", 4, "endboss", 500, 50, 100);
     throwableObjects = [];
     highscore = new Highscore();
     sounds = new Sounds();
@@ -56,6 +57,9 @@ class World {
         //-------------Space for fixed Objects-------------------
         this.addToMap(this.healthBar);
         this.addToMap(this.bottleBar);
+        if (this.isEndbossVisible()) {
+            this.addToMap(this.endbossBar);
+        }
         this.displayCoinNumber();
         this.displayTime();
 
@@ -108,7 +112,7 @@ class World {
      */
     run() {
         setInterval(() => {
-            if(!isPaused){
+            if (!isPaused) {
                 this.checkCollisions();
                 this.checkIfChickenIsVisible();
                 checkProgression(this.character.x, this.level.enemies);
@@ -116,7 +120,7 @@ class World {
                     this.character.playDeadAnimation();
                     this.prepareGameEnd(this.character.won);
                 }
-            } 
+            }
         }, 100)
     }
 
@@ -125,7 +129,7 @@ class World {
      */
     throwObject() {
         if (this.character.numberBottles > 0) {
-            let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 20);
+            let bottle = new ThrowableObject(this.character.x + 60, this.character.y + 20, this.character.movesBackwards);
             this.sounds.playSoundIfAllowed(this.character.throwing_sound, this.allSounds);
             this.throwableObjects.push(bottle);
             this.level.bottlesOnGround.push(bottle);
@@ -174,7 +178,7 @@ class World {
      * @param {throwObject} to 
      * @param {integer} index 
      */
-    checkThrowableObjectCollisionOnEnemy(to, index){
+    checkThrowableObjectCollisionOnEnemy(to, index) {
         this.level.enemies.forEach((enemy) => {
             if (enemy.isColliding(to) && !enemy.dead && to.isAboveGround()) {
                 enemy.dead = true;
@@ -191,6 +195,7 @@ class World {
      */
     checkEndbossEnergy() {
         this.level.endboss.energy--;
+        this.updateEndbossBar();
         this.updateEndbossAnimation();
         if (this.level.endboss.energy == 3) {
             spawnTurbochickens(this.level.enemies);
@@ -304,12 +309,24 @@ class World {
      */
     checkIfChickenIsVisible() {
         this.level.enemies.forEach(enemy => {
-            if (!enemy.dead && enemy.x < (this.character.x + 600) && enemy.x > (this.character.x - enemy.width - 120)){
+            if (!enemy.dead && enemy.x < (this.character.x + 600) && enemy.x > (this.character.x - enemy.width - 120)) {
                 this.sounds.playSoundIfAllowed(enemy.chicken_sound, this.allSounds);
             } else {
                 this.sounds.stopSound(enemy.chicken_sound);
             }
-       });
+        });
+    }
+
+    /**
+     * checks if endboss is visible in canvas
+     * @returns if endboss is visible in canvas
+     */
+    isEndbossVisible() {
+        if (this.level.endboss.x < (this.character.x + 600) && this.level.endboss.x > (this.character.x - this.level.endboss.width - 120)) {
+            return true
+        } else {
+            return false
+        }
     }
 
     /**
@@ -328,6 +345,13 @@ class World {
         if (this.character.numberBottles <= 10) {
             this.coinBar.setPercentage(this.character.numberCoins * 10);
         }
+    }
+
+    /**
+     * updates the status of the endboss energy bar
+     */
+    updateEndbossBar() {
+        this.endbossBar.setPercentage(this.level.endboss.energy * 20);
     }
 
     /**
@@ -363,7 +387,7 @@ class World {
     /**
      * stops all sounds 
      */
-    stopAllSounds(){
+    stopAllSounds() {
         this.allSounds.forEach(sound => {
             sound.pause();
         });
@@ -384,7 +408,7 @@ class World {
      */
     prepareGameEnd(won) {
         let counter = 0;
-        this.gameover = true;    
+        this.gameover = true;
         let outro = setInterval(() => {
             if (counter == 1) {
                 this.createHighscore(won)
@@ -414,16 +438,16 @@ class World {
      * sets the highscore list
      * @param {boolean} won 
      */
-    createHighscore(won){
+    createHighscore(won) {
         this.finalScore = this.getFinalScore(won);
         this.bestScoreList = this.highscore.getBestScoreList();
         this.highscore.safeToLocalStorage();
     }
 
-     /**
-     * displays the coin number in the canvas
-     */
-     displayCoinNumber() {
+    /**
+    * displays the coin number in the canvas
+    */
+    displayCoinNumber() {
         let text = this.highscore.score;
         let textWidth = this.ctx.measureText(text).width;
         let textHeight = 30;

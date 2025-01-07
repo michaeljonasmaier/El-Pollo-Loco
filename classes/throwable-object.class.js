@@ -19,14 +19,16 @@ class ThrowableObject extends MovableObject {
     IMAGE_ONGROUND = "img/6_salsa_bottle/1_salsa_bottle_on_ground_press_b_key.png";
     damageDone = false;
     distance;
+    throwLeft;
     isCollectable = false;
     sounds = new Sounds();
     bottle_ground_sound = new Audio('audio/bottle_ground.mp3');
     bottle_splash_sound = new Audio('audio/bottle_broken.mp3');
     soundPlayed = false;
     world;
+    offsetX = 0;
 
-    constructor(x, y) {
+    constructor(x, y, throwLeft) {
         super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
         this.loadImages(this.IMAGES_FLYING);
         this.loadImages(this.IMAGES_SPLASHING);
@@ -37,6 +39,7 @@ class ThrowableObject extends MovableObject {
         this.speedY = 20;
         this.distance = 16 + Math.random()*8;
         this.bottle_splash_sound.volume = 0.3;
+        this.throwLeft = throwLeft;
         this.applyGravity();
         this.throw();
         this.animate();
@@ -71,10 +74,14 @@ class ThrowableObject extends MovableObject {
     }
 
     /**
-     * throws the object over distance
+     * throws the object over distance in direction of character moving
      */
     throw() {
-        this.x += this.distance;
+        if(this.throwLeft){
+            this.x -= this.distance;
+        } else {
+            this.x += this.distance;
+        }
     }
 
     /**

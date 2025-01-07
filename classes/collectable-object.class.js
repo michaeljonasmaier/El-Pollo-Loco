@@ -3,6 +3,7 @@ class CollectableObject extends DrawableObject {
     y = 80;
     width;
     height;
+    offsetX = 0;
 
     constructor(path, x, y, width, height) {
         super().loadImage(path);
