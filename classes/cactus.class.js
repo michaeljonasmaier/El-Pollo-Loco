@@ -5,6 +5,7 @@ class Cactus extends MovableObject{
     width = 50;
     speedY = 10;
     acceleration = 1;
+    offsetX = 0;
     damageDone = false;
 
     constructor(x, y){

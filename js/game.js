@@ -28,7 +28,7 @@ function init() {
 /**
  * starts background music
  */
-function startBackgroundMusic(){
+function startBackgroundMusic() {
     sounds.playSoundIfAllowed(world.backgroundMusic, world.allSounds);
 }
 
@@ -91,8 +91,8 @@ function pauseSounds() {
 /**
  * restarts background music after pausing
  */
-function playBackgroundMusic(){
-    if(!sounds.isPlaying(world.backgroundMusic) && !world.gameover){
+function playBackgroundMusic() {
+    if (!sounds.isPlaying(world.backgroundMusic) && !world.gameover) {
         sounds.playSoundIfAllowed(world.backgroundMusic, world.allSounds);
     }
 }
@@ -148,6 +148,39 @@ function collectBottleMobile() {
             world.collectBottleOnGround();
         });
     }
+}
+
+/**
+ * sets the highscore list
+ * @param {boolean} won 
+ */
+function createHighscore(won) {
+    world.finalScore = world.getFinalScore(won);
+    world.bestScoreList = world.highscore.getBestScoreList();
+    world.highscore.safeToLocalStorage();
+}
+
+/**
+  * prepares the end screen, waits a second after game end, plays the music and clears the intervals
+  * @param {boolean} won 
+  */
+function prepareGameEnd(won) {
+    let counter = 0;
+    world.gameover = true;
+    let outro = setInterval(() => {
+        if (counter == 1) {
+            createHighscore(won)
+            gameEnd(world.finalScore, world.character.won, world.bestScoreList);
+            world.stopAllSounds();
+            playFinalMusic(won);
+            clearInterval(outro);
+        } else {
+            if (won) {
+                world.killAllEnemies();
+            }
+        }
+        counter++
+    }, 1000);
 }
 
 /**

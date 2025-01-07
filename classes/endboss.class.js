@@ -82,4 +82,24 @@ class Endboss extends MovableObject {
             } 
         }, 150);
     }
+
+    /**
+     * updates the endboss animation style
+     * @returns if endboss is dead or not
+     */
+    updateAnimation(){
+        if (this.energy == 4) {
+            this.animationStyle = "walk";
+        } else if (this.energy == 3) {
+            this.animationStyle = "attack";
+        } else if (this.energy == 2) {
+            this.animationStyle = "hurt";
+        } else if (this.energy == 1) {
+            this.animationStyle = "hurt";
+        } else if (this.energy == 0) {
+            this.animationStyle = "dead";
+            return true;
+        }
+        return false;
+    }
 }

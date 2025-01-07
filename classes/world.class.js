@@ -118,7 +118,7 @@ class World {
                 checkProgression(this.character.x, this.level.enemies);
                 if (this.character.isDead()) {
                     this.character.playDeadAnimation();
-                    this.prepareGameEnd(this.character.won);
+                    prepareGameEnd(this.character.won);
                 }
             }
         }, 100)
@@ -339,15 +339,6 @@ class World {
     }
 
     /**
-     * updates the status of the coin bar
-     */
-    updateCoinBar() {
-        if (this.character.numberBottles <= 10) {
-            this.coinBar.setPercentage(this.character.numberCoins * 10);
-        }
-    }
-
-    /**
      * updates the status of the endboss energy bar
      */
     updateEndbossBar() {
@@ -358,19 +349,10 @@ class World {
      * updates the endboss animation depending of its energy
      */
     updateEndbossAnimation() {
-        if (this.level.endboss.energy == 4) {
-            this.level.endboss.animationStyle = "walk";
-        } else if (this.level.endboss.energy == 3) {
-            this.level.endboss.animationStyle = "attack";
-        } else if (this.level.endboss.energy == 2) {
-            this.level.endboss.animationStyle = "hurt";
-        } else if (this.level.endboss.energy == 1) {
-            this.level.endboss.animationStyle = "hurt";
-        } else if (this.level.endboss.energy == 0) {
-            this.level.endboss.animationStyle = "dead";
+        if(this.level.endboss.updateAnimation()){
             this.character.won = true;
-            this.prepareGameEnd(this.character.won);
-        }
+            prepareGameEnd(this.character.won);
+        }     
     }
 
     /**
@@ -403,44 +385,11 @@ class World {
     }
 
     /**
-     * prepares the end screen, waits a second after game end, plays the music and clears the intervals
-     * @param {boolean} won 
-     */
-    prepareGameEnd(won) {
-        let counter = 0;
-        this.gameover = true;
-        let outro = setInterval(() => {
-            if (counter == 1) {
-                this.createHighscore(won)
-                gameEnd(this.finalScore, this.character.won, this.bestScoreList);
-                this.stopAllSounds();
-                playFinalMusic(won);
-                clearInterval(outro);
-            } else {
-                if (won) {
-                    this.killAllEnemies();
-                }
-            }
-            counter++
-        }, 1000);
-    }
-
-    /**
      * kills all enemies in canvas
      */
     killAllEnemies() {
         this.level.enemies.forEach(enemy => {
             enemy.dead = true;
         });
-    }
-
-    /**
-     * sets the highscore list
-     * @param {boolean} won 
-     */
-    createHighscore(won) {
-        this.finalScore = this.getFinalScore(won);
-        this.bestScoreList = this.highscore.getBestScoreList();
-        this.highscore.safeToLocalStorage();
     }
 }
