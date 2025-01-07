@@ -162,6 +162,7 @@ class Character extends MovableObject {
         this.currentImage = 0;
             let deadIntervall = setInterval(() => {
                 this.fall()
+                this.sounds.playSoundIfAllowed(this.screaming_sound, this.world.allSounds)
                 this.playAnimation(this.IMAGES_DEAD);    
             }, 100);
     }
