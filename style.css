@@ -207,6 +207,10 @@ body {
     right: calc(50% - 410px);
 }
 
+.mute-div:hover{
+    cursor: pointer;
+}
+
 .mute-div img{
     height: 40px;
 }
@@ -294,6 +298,18 @@ body {
 footer {
     height: 100px;
     background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer a{
+    color: rgba(255, 255, 255, 0.621);
+    text-decoration: none;   
+}
+
+footer a:hover{
+    text-decoration: underline;
 }
 
  /*--------------------------------------------------------RESPONSIVENESS---------------------------------------------------------------------- */
@@ -383,5 +399,13 @@ footer {
 
     .mute-div{
         top: calc(50% - 180px);
+    }
+
+    footer{
+        height: 25px;
+    }
+
+    footer a{
+        font-size: 10px;
     }
 }
