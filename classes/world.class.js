@@ -60,8 +60,8 @@ class World {
         if (this.isEndbossVisible()) {
             this.addToMap(this.endbossBar);
         }
-        this.displayCoinNumber();
-        this.displayTime();
+        displayCoinNumber(this.ctx, this.canvas, this.highscore);
+        displayTime(this.ctx, this.canvas, this.highscore);
 
         this.ctx.translate(this.camera_x, 0);
         this.ctx.translate(-this.camera_x, 0);
@@ -81,7 +81,7 @@ class World {
 
     /**
      * draws movable objects and flips image if needed
-     * @param {MovableObject} mo 
+     * @param {MovableObject} mo - movable object
      */
     addToMap(mo) {
         if (mo.otherDirection) {
@@ -95,7 +95,7 @@ class World {
 
     /**
      * draws character 
-     * @param {MovableObject} mo 
+     * @param {MovableObject} mo - movable object
      */
     addCharacterToMap(mo) {
         if (mo.otherDirection) {
@@ -443,32 +443,4 @@ class World {
         this.bestScoreList = this.highscore.getBestScoreList();
         this.highscore.safeToLocalStorage();
     }
-
-    /**
-    * displays the coin number in the canvas
-    */
-    displayCoinNumber() {
-        let text = this.highscore.score;
-        let textWidth = this.ctx.measureText(text).width;
-        let textHeight = 30;
-        this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(this.canvas.width - 95, 27, textWidth + 50, textHeight);
-        this.ctx.fillStyle = '#6f86d6';
-        this.ctx.fillText(text, this.canvas.width - 50, 50);
-        let img = new Image();
-        img.src = 'img/8_coin/coin_1.png';
-        this.ctx.drawImage(img, this.canvas.width - 90, 27, 25, 25);
-    }
-
-    /**
-     * displays the time in the canvas
-     */
-    displayTime() {
-        let textHeight = 30;
-        this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(this.canvas.width - 220, 27, 100, textHeight);
-        this.ctx.fillStyle = '#6f86d6';
-        this.ctx.fillText("Time: " + this.highscore.time, this.canvas.width - 210, 50);
-    }
-
 }
